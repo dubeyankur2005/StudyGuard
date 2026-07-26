@@ -1,0 +1,20 @@
+.chart-card{
+    background:rgba(21,29,45,.75);
+
+backdrop-filter:blur(16px);
+
+-webkit-backdrop-filter:blur(16px);
+    border-radius:20px;
+    padding:24px;
+    border:1px solid rgba(255,255,255,.05);
+}
+
+.chart-header{
+    margin-bottom:20px;
+}
+
+.chart-header h3{
+    color:white;
+    font-size:20px;
+    font-weight:600;
+}

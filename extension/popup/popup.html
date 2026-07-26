@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyGuard</title>
+
+    <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>StudyGuard</h1>
+
+        <p class="subtitle">
+            Stay Focused While Learning
+        </p>
+
+        <div class="card">
+
+            <div class="setting">
+
+                <span>Study Mode</span>
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="studyMode">
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+            <div class="setting">
+
+                <span>Focus Mode</span>
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="focusMode">
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+            <div class="setting">
+
+                <span>Tracking</span>
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="trackingEnabled"
+                        checked>
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+        </div>
+
+        <div class="stats">
+
+            <div class="stat-box">
+
+                <h3 id="todayStudyTime">
+                    0 min
+                </h3>
+
+                <p>Today's Study</p>
+
+            </div>
+
+            <div class="stat-box">
+
+                <h3 id="todayEntertainmentTime">
+                    0 min
+                </h3>
+
+                <p>Entertainment</p>
+
+            </div>
+
+        </div>
+
+        <button id="dashboardBtn">
+            Open Dashboard
+        </button>
+
+    </div>
+
+    <script src="popup.js"></script>
+
+</body>
+
+</html>

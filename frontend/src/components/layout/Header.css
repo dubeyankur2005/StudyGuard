@@ -1,0 +1,105 @@
+.header {
+  height: 80px;
+  width: 100%;
+  background: #111827;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  border-bottom: 1px solid #23293a;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.menu-btn,
+.icon-btn,
+.date-btn {
+  border: none;
+  background:rgba(255,255,255,.04);
+
+backdrop-filter:blur(12px);
+
+border:1px solid rgba(255,255,255,.05);
+  color: white;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.menu-btn,
+.icon-btn {
+  width: 48px;
+  height: 48px;
+  font-size: 20px;
+}
+
+.date-btn {
+  height: 48px;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+}
+
+.search-box {
+  width: 500px;
+  height: 48px;
+  background: #1b2333;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+}
+
+.search-icon {
+  color: #8b95a7;
+  font-size: 18px;
+}
+
+.search-box input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: white;
+  margin-left: 15px;
+  font-size: 15px;
+}
+
+.search-box input::placeholder {
+  color: #8b95a7;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.profile img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+
+.profile-info h5 {
+  color: white;
+  margin: 0;
+  font-size: 15px;
+}
+
+.profile-info p {
+  color: #8b95a7;
+  margin: 0;
+  font-size: 13px;
+}

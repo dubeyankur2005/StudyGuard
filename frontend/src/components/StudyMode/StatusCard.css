@@ -1,0 +1,278 @@
+/* ==========================================
+   STATUS SECTION
+========================================== */
+
+.status-section{
+
+margin-top:40px;
+
+}
+
+.section-header{
+
+margin-bottom:28px;
+
+}
+
+.section-header h2{
+
+font-size:2rem;
+
+font-weight:700;
+
+color:#ffffff;
+
+margin-bottom:8px;
+
+}
+
+.section-header p{
+
+color:#94A3B8;
+
+font-size:1rem;
+
+}
+
+/* ==========================================
+   GRID
+========================================== */
+
+.status-grid{
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:28px;
+
+}
+
+/* ==========================================
+   CARD
+========================================== */
+
+.status-card{
+
+display:flex;
+
+align-items:center;
+
+gap:22px;
+
+padding:30px;
+
+border-radius:24px;
+
+background:linear-gradient(
+145deg,
+#111827,
+#0F172A
+);
+
+border:1px solid rgba(255,255,255,.06);
+
+box-shadow:
+0 18px 45px rgba(0,0,0,.28);
+
+transition:.35s;
+
+}
+
+.status-card:hover{
+
+transform:translateY(-6px);
+
+border-color:rgba(20,184,166,.35);
+
+box-shadow:
+
+0 22px 55px rgba(20,184,166,.16);
+
+}
+
+/* ==========================================
+   ICON
+========================================== */
+
+.status-icon{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+width:72px;
+
+height:72px;
+
+border-radius:22px;
+
+font-size:30px;
+
+color:#ffffff;
+
+flex-shrink:0;
+
+}
+
+/* Colors */
+
+.status-icon.green{
+
+background:linear-gradient(
+135deg,
+#22C55E,
+#16A34A
+);
+
+}
+
+.status-icon.red{
+
+background:linear-gradient(
+135deg,
+#EF4444,
+#DC2626
+);
+
+}
+
+.status-icon.blue{
+
+background:linear-gradient(
+135deg,
+#3B82F6,
+#2563EB
+);
+
+}
+
+/* ==========================================
+   CONTENT
+========================================== */
+
+.status-content{
+
+display:flex;
+
+flex-direction:column;
+
+}
+
+.status-content h4{
+
+font-size:1rem;
+
+font-weight:500;
+
+color:#94A3B8;
+
+margin-bottom:8px;
+
+}
+
+.status-content h3{
+
+font-size:2rem;
+
+font-weight:700;
+
+color:#ffffff;
+
+margin-bottom:14px;
+
+}
+
+/* ==========================================
+   BADGE
+========================================== */
+
+.status-badge{
+
+display:inline-flex;
+
+align-items:center;
+
+justify-content:center;
+
+padding:8px 16px;
+
+border-radius:30px;
+
+font-size:.85rem;
+
+font-weight:600;
+
+}
+
+.status-badge.success{
+
+background:rgba(34,197,94,.15);
+
+color:#22C55E;
+
+border:1px solid rgba(34,197,94,.35);
+
+}
+
+.status-badge.danger{
+
+background:rgba(239,68,68,.15);
+
+color:#EF4444;
+
+border:1px solid rgba(239,68,68,.35);
+
+}
+
+.status-badge.info{
+
+background:rgba(59,130,246,.15);
+
+color:#3B82F6;
+
+border:1px solid rgba(59,130,246,.35);
+
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:1100px){
+
+.status-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.status-card{
+
+padding:24px;
+
+}
+
+.status-content h3{
+
+font-size:1.6rem;
+
+}
+
+.status-icon{
+
+width:62px;
+
+height:62px;
+
+font-size:26px;
+
+}
+
+}

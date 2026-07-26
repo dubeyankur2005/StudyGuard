@@ -1,0 +1,39 @@
+.charts-section{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:30px;
+
+    align-items:stretch;
+
+    margin-top:5px;
+
+    margin-bottom:10px;
+
+}
+
+/* ==========================
+   Responsive
+========================== */
+
+@media(max-width:1200px){
+
+    .charts-section{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .charts-section{
+
+        gap:20px;
+
+    }
+
+}

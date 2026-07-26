@@ -1,0 +1,238 @@
+/* ===================================================
+   STUDY MODE PAGE
+=================================================== */
+
+.study-mode-page{
+
+    position:relative;
+
+    min-height:100vh;
+
+    overflow:hidden;
+
+    padding:40px 42px 70px;
+
+    background:
+        radial-gradient(circle at top right,
+        rgba(20,184,166,.08),
+        transparent 28%),
+
+        radial-gradient(circle at bottom left,
+        rgba(59,130,246,.08),
+        transparent 30%),
+
+        #08111F;
+
+}
+
+/* ===================================================
+   Background Glow
+=================================================== */
+
+.study-mode-page::before{
+
+    content:"";
+
+    position:fixed;
+
+    top:-260px;
+
+    right:-220px;
+
+    width:620px;
+
+    height:620px;
+
+    border-radius:50%;
+
+    background:rgba(20,184,166,.06);
+
+    filter:blur(150px);
+
+    pointer-events:none;
+
+    z-index:0;
+
+}
+
+.study-mode-page::after{
+
+    content:"";
+
+    position:fixed;
+
+    left:-260px;
+
+    bottom:-220px;
+
+    width:580px;
+
+    height:580px;
+
+    border-radius:50%;
+
+    background:rgba(59,130,246,.06);
+
+    filter:blur(150px);
+
+    pointer-events:none;
+
+    z-index:0;
+
+}
+
+/* ===================================================
+   Main Container
+=================================================== */
+
+.study-mode-container{
+
+    position:relative;
+
+    z-index:2;
+
+    width:100%;
+
+    max-width:1550px;
+
+    margin:0 auto;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:36px;
+
+}
+
+/* ===================================================
+   Bottom Layout
+=================================================== */
+
+/* ===================================================
+   Bottom Layout
+=================================================== */
+
+.study-bottom{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:32px;
+
+    align-items:stretch;
+
+}
+
+/* Make both boxes equal height */
+
+.study-bottom > *{
+
+    height:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+/* ===================================================
+   Equal Heights
+=================================================== */
+
+.study-bottom > *{
+
+    height:100%;
+
+}
+
+@media (max-width:1200px){
+
+    .study-bottom{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+/* ===================================================
+   Section Animation
+=================================================== */
+
+.study-mode-container > *{
+
+    animation:fadeUp .55s ease;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(18px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ===================================================
+   Tablet
+=================================================== */
+
+@media (max-width:1200px){
+
+    .study-bottom{
+
+        grid-template-columns:1fr;
+
+        gap:28px;
+
+    }
+
+}
+
+/* ===================================================
+   Mobile
+=================================================== */
+
+@media (max-width:900px){
+
+    .study-mode-page{
+
+        padding:22px;
+
+    }
+
+    .study-mode-container{
+
+        gap:24px;
+
+    }
+
+}
+
+/* ===================================================
+   Small Mobile
+=================================================== */
+
+@media (max-width:600px){
+
+    .study-mode-page{
+
+        padding:18px;
+
+    }
+
+}

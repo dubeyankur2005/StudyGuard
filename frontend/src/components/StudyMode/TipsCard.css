@@ -1,0 +1,240 @@
+/* ==========================================
+   TIPS SECTION
+========================================== */
+
+.tips-section{
+
+margin-top:40px;
+
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.tips-header{
+
+margin-bottom:28px;
+
+}
+
+.tips-header h2{
+
+font-size:2rem;
+
+font-weight:700;
+
+color:#ffffff;
+
+margin-bottom:10px;
+
+}
+
+.tips-header p{
+
+font-size:1rem;
+
+color:#94A3B8;
+
+line-height:1.7;
+
+}
+
+/* ==========================================
+   GRID
+========================================== */
+
+.tips-grid{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:24px;
+
+}
+
+/* ==========================================
+   CARD
+========================================== */
+
+.tip-card{
+
+display:flex;
+
+align-items:flex-start;
+
+gap:22px;
+
+padding:28px;
+
+border-radius:24px;
+
+background:linear-gradient(
+145deg,
+#111827,
+#0F172A
+);
+
+border:1px solid rgba(255,255,255,.06);
+
+box-shadow:
+0 18px 40px rgba(0,0,0,.28);
+
+transition:.35s;
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+.tip-card::before{
+
+content:"";
+
+position:absolute;
+
+top:-70px;
+
+right:-70px;
+
+width:180px;
+
+height:180px;
+
+border-radius:50%;
+
+background:rgba(20,184,166,.08);
+
+filter:blur(60px);
+
+}
+
+.tip-card:hover{
+
+transform:translateY(-6px);
+
+border-color:rgba(20,184,166,.35);
+
+box-shadow:
+
+0 24px 55px rgba(20,184,166,.18);
+
+}
+
+/* ==========================================
+   ICON
+========================================== */
+
+.tip-icon{
+
+width:68px;
+
+height:68px;
+
+border-radius:20px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+background:linear-gradient(
+135deg,
+#14B8A6,
+#2DD4BF
+);
+
+font-size:28px;
+
+color:white;
+
+flex-shrink:0;
+
+box-shadow:
+
+0 0 25px rgba(20,184,166,.35);
+
+}
+
+/* ==========================================
+   CONTENT
+========================================== */
+
+.tip-content{
+
+position:relative;
+
+z-index:2;
+
+}
+
+.tip-content h3{
+
+font-size:1.2rem;
+
+font-weight:700;
+
+color:#ffffff;
+
+margin-bottom:10px;
+
+}
+
+.tip-content p{
+
+font-size:.96rem;
+
+line-height:1.8;
+
+color:#9DB2CE;
+
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:1000px){
+
+.tips-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.tip-card{
+
+padding:24px;
+
+}
+
+.tip-icon{
+
+width:58px;
+
+height:58px;
+
+font-size:24px;
+
+}
+
+.tip-content h3{
+
+font-size:1.05rem;
+
+}
+
+.tip-content p{
+
+font-size:.92rem;
+
+}
+
+}

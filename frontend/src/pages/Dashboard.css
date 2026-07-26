@@ -1,0 +1,177 @@
+/* ===========================================================
+   DASHBOARD PAGE
+=========================================================== */
+
+.dashboard-page{
+
+    min-height:100vh;
+
+    padding:42px;
+
+    background:#08111F;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+/* ===========================================================
+   Background Glow
+=========================================================== */
+
+.dashboard-page::before{
+
+    content:"";
+
+    position:fixed;
+
+    top:-220px;
+
+    right:-220px;
+
+    width:600px;
+
+    height:600px;
+
+    border-radius:50%;
+
+    background:rgba(20,184,166,.06);
+
+    filter:blur(150px);
+
+    pointer-events:none;
+
+}
+
+.dashboard-page::after{
+
+    content:"";
+
+    position:fixed;
+
+    left:-220px;
+
+    bottom:-220px;
+
+    width:520px;
+
+    height:520px;
+
+    border-radius:50%;
+
+    background:rgba(59,130,246,.05);
+
+    filter:blur(140px);
+
+    pointer-events:none;
+
+}
+
+/* ===========================================================
+   Container
+=========================================================== */
+
+.dashboard-container{
+
+    position:relative;
+
+    z-index:2;
+
+    max-width:1550px;
+
+    margin:auto;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:36px;
+
+}
+
+/* ===========================================================
+   Charts
+=========================================================== */
+
+.dashboard-container > :nth-child(3){
+
+    margin-top:6px;
+
+}
+
+/* ===========================================================
+   Bottom
+=========================================================== */
+
+.dashboard-bottom{
+
+    display:grid;
+
+    grid-template-columns:1.65fr .75fr;
+
+    gap:28px;
+
+    align-items:start;
+
+}
+
+/* ===========================================================
+   Animation
+=========================================================== */
+
+.dashboard-container>*{
+
+    animation:dashboardFade .45s ease;
+
+}
+
+@keyframes dashboardFade{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(18px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ===========================================================
+   Responsive
+=========================================================== */
+
+@media(max-width:1300px){
+
+    .dashboard-bottom{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media(max-width:900px){
+
+    .dashboard-page{
+
+        padding:24px;
+
+    }
+
+    .dashboard-container{
+
+        gap:24px;
+
+    }
+
+}

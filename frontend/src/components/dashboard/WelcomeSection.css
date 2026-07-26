@@ -1,0 +1,204 @@
+.welcome-section{
+
+    width:100%;
+
+    padding:42px 48px;
+
+    border-radius:24px;
+
+    background:linear-gradient(
+        135deg,
+        #111B2E 0%,
+        #0F172A 100%
+    );
+
+    border:1px solid rgba(255,255,255,.05);
+
+    position:relative;
+
+    overflow:hidden;
+
+    margin-bottom:34px;
+
+}
+
+.welcome-section::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:260px;
+
+    height:260px;
+
+    border-radius:50%;
+
+    background:rgba(20,184,166,.08);
+
+    top:-90px;
+
+    right:-90px;
+
+}
+
+.welcome-section::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+
+    height:180px;
+
+    border-radius:50%;
+
+    background:rgba(59,130,246,.05);
+
+    bottom:-70px;
+
+    left:-70px;
+
+}
+
+.welcome-content{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.welcome-title{
+
+    margin:0;
+
+    font-size:46px;
+
+    line-height:1.15;
+
+    font-weight:800;
+
+}
+
+.welcome-white{
+
+    color:#F8FAFC;
+
+}
+
+.welcome-name{
+
+    background:linear-gradient(
+        90deg,
+        #14B8A6,
+        #3B82F6
+    );
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+}
+
+.wave{
+
+    display:inline-block;
+
+    margin-left:10px;
+
+    animation:wave 2.5s infinite;
+
+}
+
+@keyframes wave{
+
+    0%{
+
+        transform:rotate(0deg);
+
+    }
+
+    15%{
+
+        transform:rotate(18deg);
+
+    }
+
+    30%{
+
+        transform:rotate(-10deg);
+
+    }
+
+    45%{
+
+        transform:rotate(18deg);
+
+    }
+
+    60%{
+
+        transform:rotate(0deg);
+
+    }
+
+    100%{
+
+        transform:rotate(0deg);
+
+    }
+
+}
+
+.welcome-description{
+
+    margin-top:18px;
+
+    max-width:720px;
+
+    font-size:18px;
+
+    line-height:1.8;
+
+    font-weight:500;
+
+}
+
+.text-gray{
+
+    color:#94A3B8;
+
+}
+
+.text-accent{
+
+    color:#2DD4BF;
+
+    font-weight:600;
+
+}
+
+@media(max-width:900px){
+
+    .welcome-section{
+
+        padding:32px;
+
+    }
+
+    .welcome-title{
+
+        font-size:36px;
+
+    }
+
+    .welcome-description{
+
+        font-size:16px;
+
+    }
+
+}
+

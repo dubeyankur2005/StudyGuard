@@ -1,0 +1,37 @@
+:root{
+
+    --bg:#0B1120;
+
+    --card:#151D2D;
+
+    --border:#283244;
+
+    --text:#F8FAFC;
+
+    --text-secondary:#94A3B8;
+
+    --primary:#14B8A6;
+
+    --danger:#F97316;
+
+    --purple:#6D5EF7;
+
+    --pink:#F43F5E;
+
+}
+.glass-card{
+    background: rgba(21,29,45,.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    border: 1px solid rgba(255,255,255,.05);
+
+    box-shadow:
+        0 8px 32px rgba(0,0,0,.25);
+}
+
+*{
+
+    font-family:'Inter',sans-serif;
+
+}

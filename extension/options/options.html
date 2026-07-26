@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>StudyGuard Settings</title>
+
+    <link
+        rel="stylesheet"
+        href="options.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>StudyGuard Settings</h1>
+
+        <div class="card">
+
+            <h2>General Settings</h2>
+
+            <div class="setting">
+
+                <label for="studyMode">
+                    Enable Study Mode
+                </label>
+
+                <input
+                    type="checkbox"
+                    id="studyMode">
+
+            </div>
+
+            <div class="setting">
+
+                <label for="focusMode">
+                    Enable Focus Mode
+                </label>
+
+                <input
+                    type="checkbox"
+                    id="focusMode">
+
+            </div>
+
+            <div class="setting">
+
+                <label for="tracking">
+                    Enable Tracking
+                </label>
+
+                <input
+                    type="checkbox"
+                    id="tracking">
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>Daily Goal</h2>
+
+            <input
+                type="number"
+                id="dailyGoal"
+                placeholder="Minutes">
+
+        </div>
+
+        <div class="card">
+
+            <h2>Weekly Goal</h2>
+
+            <input
+                type="number"
+                id="weeklyGoal"
+                placeholder="Minutes">
+
+        </div>
+
+        <div class="card">
+
+            <h2>Allowed Keywords</h2>
+
+            <textarea
+                id="allowedKeywords"
+                rows="5"
+                placeholder="java, react, node..."></textarea>
+
+        </div>
+
+        <div class="card">
+
+            <h2>Blocked Keywords</h2>
+
+            <textarea
+                id="blockedKeywords"
+                rows="5"
+                placeholder="gaming, prank..."></textarea>
+
+        </div>
+
+        <div class="card">
+
+            <h2>Allowed Channels</h2>
+
+            <textarea
+                id="allowedChannels"
+                rows="5"
+                placeholder="Apna College"></textarea>
+
+        </div>
+
+        <div class="card">
+
+            <h2>Blocked Channels</h2>
+
+            <textarea
+                id="blockedChannels"
+                rows="5"
+                placeholder="Channel Name"></textarea>
+
+        </div>
+
+        <button id="saveBtn">
+            Save Settings
+        </button>
+
+        <p id="status"></p>
+
+    </div>
+
+    <script src="options.js"></script>
+
+</body>
+
+</html>

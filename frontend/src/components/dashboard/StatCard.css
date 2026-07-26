@@ -1,0 +1,255 @@
+.stat-card{
+    position:relative;
+    overflow:hidden;
+
+    height:240px;
+
+    padding:28px;
+
+    border-radius:22px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:.35s ease;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+
+    cursor:pointer;
+}
+
+.stat-card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(255,255,255,.12);
+}
+
+/*==========================
+        CARD COLORS
+===========================*/
+
+.study{
+    background:
+    linear-gradient(
+        135deg,
+        #0F4547 0%,
+        #16313A 28%,
+        #1B2233 70%,
+        #1B2233 100%
+    );
+}
+
+.entertainment{
+    background:
+    linear-gradient(
+        135deg,
+        #4A311E 0%,
+        #352C2A 28%,
+        #1B2233 70%,
+        #1B2233 100%
+    );
+}
+
+.video{
+    background:
+    linear-gradient(
+        135deg,
+        #2B285A 0%,
+        #252C43 28%,
+        #1B2233 70%,
+        #1B2233 100%
+    );
+}
+
+.streak{
+    background:
+    linear-gradient(
+        135deg,
+        #47293B 0%,
+        #302A38 28%,
+        #1B2233 70%,
+        #1B2233 100%
+    );
+}
+
+
+/*==========================
+        TOP GLOW
+===========================*/
+
+.stat-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:120px;
+    height:120px;
+
+    right:-45px;
+    top:-45px;
+
+    border-radius:50%;
+
+    opacity:.10;
+}
+
+.study::before{
+    background:#14B8A6;
+}
+
+.entertainment::before{
+    background:#F97316;
+}
+
+.video::before{
+    background:#6D5DF6;
+}
+
+.streak::before{
+    background:#F43F5E;
+}
+
+
+/*==========================
+        ICON
+===========================*/
+
+.card-top{
+    display:flex;
+    justify-content:flex-start;
+}
+
+.icon-box{
+
+    width:56px;
+    height:56px;
+
+    border-radius:16px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    color:white;
+
+    font-size:28px;
+}
+
+.study .icon-box{
+    background:#27D7C8;
+}
+
+.entertainment .icon-box{
+    background:#FF9428;
+}
+
+.video .icon-box{
+    background:#7367FF;
+}
+
+.streak .icon-box{
+    background:#FF4F7B;
+}
+
+
+/*==========================
+        CONTENT
+===========================*/
+
+.card-content{
+
+    margin-top:10px;
+}
+
+.card-content h4{
+
+    color:#F1F5F9;
+
+    font-size:18px;
+
+    font-weight:500;
+
+    margin-bottom:14px;
+}
+
+.card-content h2{
+
+    color:#FFFFFF;
+
+    font-size:58px;
+
+    font-weight:700;
+
+    line-height:1;
+
+    margin-bottom:20px;
+}
+
+.card-content p{
+
+    font-size:18px;
+
+    font-weight:500;
+}
+
+.study p{
+    color:#30E7C8;
+}
+
+.entertainment p{
+    color:#FF9736;
+}
+
+.video p{
+    color:#5FA9FF;
+}
+
+.streak p{
+    color:#FF6A8C;
+}
+
+
+/*==========================
+    CORNER GRAPH
+===========================*/
+
+.graph-placeholder{
+
+    position:absolute;
+
+    right:20px;
+
+    bottom:18px;
+
+    width:95px;
+
+    height:72px;
+
+    border-right:4px solid rgba(255,255,255,.10);
+
+    border-bottom:4px solid rgba(255,255,255,.10);
+
+    border-radius:0 0 20px 0;
+}
+
+
+/*==========================
+      SUBTLE SHADOW
+===========================*/
+
+.study{
+    box-shadow:0 10px 35px rgba(20,184,166,.08);
+}
+
+.entertainment{
+    box-shadow:0 10px 35px rgba(249,115,22,.08);
+}
+
+.video{
+    box-shadow:0 10px 35px rgba(109,93,246,.08);
+}
+
+.streak{
+    box-shadow:0 10px 35px rgba(244,63,94,.08);
+}

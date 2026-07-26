@@ -1,0 +1,23 @@
+.analytics-page{
+
+    min-height:100vh;
+
+    background:#08111F;
+
+    padding:42px;
+
+}
+
+.analytics-container{
+
+    max-width:1600px;
+
+    margin:auto;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:32px;
+
+}

@@ -1,0 +1,61 @@
+.top-subjects{
+
+    background:rgba(21,29,45,.75);
+
+backdrop-filter:blur(16px);
+
+-webkit-backdrop-filter:blur(16px);
+
+    border:1px solid rgba(255,255,255,.05);
+
+    border-radius:20px;
+
+    padding:24px;
+
+}
+
+.subjects-container{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+.subject-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:12px;
+
+}
+
+.color-dot{
+
+    width:12px;
+
+    height:12px;
+
+    border-radius:50%;
+
+}
+
+.subject-name{
+
+    flex:1;
+
+    color:white;
+
+}
+
+.subject-value{
+
+    color:#94A3B8;
+
+}

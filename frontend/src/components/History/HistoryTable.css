@@ -1,0 +1,71 @@
+/* ========================================= */
+
+.history-table{
+
+width:100%;
+
+margin-top:32px;
+
+border-radius:24px;
+
+overflow:hidden;
+
+background:#121C30;
+
+border:1px solid rgba(255,255,255,.06);
+
+box-shadow:
+
+0 20px 60px rgba(0,0,0,.35);
+
+}
+
+/* ========================================= */
+
+.table-header{
+
+display:grid;
+
+grid-template-columns:
+
+4fr
+1.2fr
+1.2fr
+1.8fr
+.8fr;
+
+padding:22px 30px;
+
+background:#182338;
+
+color:#8FA5C5;
+
+font-size:.95rem;
+
+font-weight:600;
+
+border-bottom:1px solid rgba(255,255,255,.06);
+
+}
+
+/* ========================================= */
+
+.table-body{
+
+display:flex;
+
+flex-direction:column;
+
+}
+
+/* ========================================= */
+
+@media(max-width:1100px){
+
+.table-header{
+
+display:none;
+
+}
+
+}

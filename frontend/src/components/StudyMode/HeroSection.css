@@ -1,0 +1,390 @@
+/* ==========================================
+   HERO SECTION
+========================================== */
+
+.study-hero {
+
+    position: relative;
+
+    overflow: hidden;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 70px;
+
+    width: 100%;
+
+    min-height: 300px;
+
+    padding: 55px 60px;
+
+    border-radius: 30px;
+
+    background:
+        radial-gradient(circle at 85% 35%,
+        rgba(45,212,191,.18),
+        transparent 28%),
+
+        linear-gradient(
+        135deg,
+        #111A2D 0%,
+        #10192B 50%,
+        #13233B 100%
+        );
+
+    border: 1px solid rgba(45,212,191,.15);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.45);
+
+}
+
+/* ==========================================
+   Glow
+========================================== */
+
+.study-hero::before{
+
+content:"";
+
+position:absolute;
+
+top:-180px;
+
+right:-120px;
+
+width:420px;
+
+height:420px;
+
+border-radius:50%;
+
+background:rgba(45,212,191,.12);
+
+filter:blur(90px);
+
+}
+
+.study-hero::after{
+
+content:"";
+
+position:absolute;
+
+bottom:-160px;
+
+left:-80px;
+
+width:280px;
+
+height:280px;
+
+border-radius:50%;
+
+background:rgba(59,130,246,.08);
+
+filter:blur(80px);
+
+}
+
+/* ==========================================
+   Left
+========================================== */
+
+.hero-left{
+
+position:relative;
+
+z-index:2;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.hero-badge{
+
+display:inline-flex;
+
+align-items:center;
+
+justify-content:center;
+
+padding:10px 22px;
+
+margin-bottom:24px;
+
+border-radius:999px;
+
+background:linear-gradient(
+135deg,
+#22C55E,
+#14B8A6
+);
+
+color:white;
+
+font-size:.9rem;
+
+font-weight:600;
+
+box-shadow:
+0 0 18px rgba(20,184,166,.35);
+
+}
+
+.hero-left h1{
+
+font-size:3.4rem;
+
+font-weight:800;
+
+color:white;
+
+line-height:1.1;
+
+margin-bottom:20px;
+
+letter-spacing:-1px;
+
+}
+
+.hero-left p{
+
+max-width:620px;
+
+font-size:1.08rem;
+
+line-height:1.9;
+
+color:#9DB2CE;
+
+}
+/* ==========================================
+   HERO FEATURES
+========================================== */
+
+.hero-features{
+
+display:flex;
+
+flex-wrap:wrap;
+
+align-items:center;
+
+gap:16px;
+
+margin-top:34px;
+
+}
+
+.hero-feature{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+padding:14px 20px;
+
+border:1px solid rgba(255,255,255,.08);
+
+border-radius:14px;
+
+background:rgba(255,255,255,.03);
+
+backdrop-filter:blur(12px);
+
+color:#E7EDF8;
+
+font-size:.95rem;
+
+font-weight:500;
+
+transition:.3s;
+
+}
+
+.hero-feature:hover{
+
+transform:translateY(-3px);
+
+border-color:#14B8A6;
+
+background:rgba(20,184,166,.08);
+
+box-shadow:0 0 20px rgba(20,184,166,.18);
+
+}
+
+.hero-feature svg{
+
+font-size:18px;
+
+color:#2DD4BF;
+
+flex-shrink:0;
+
+}
+
+/* ==========================================
+   Right
+========================================== */
+
+.hero-right{
+
+position:relative;
+
+z-index:2;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+min-width:300px;
+
+}
+
+/* Shield */
+
+.hero-icon{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+width:150px;
+
+height:150px;
+
+border-radius:50%;
+
+background:linear-gradient(
+135deg,
+#14B8A6,
+#2DD4BF
+);
+
+color:white;
+
+font-size:72px;
+
+box-shadow:
+
+0 0 35px rgba(20,184,166,.45),
+
+0 0 90px rgba(20,184,166,.22);
+
+animation:heroPulse 3s infinite;
+
+}
+
+/* ==========================================
+   Animation
+========================================== */
+
+@keyframes heroPulse{
+
+0%{
+
+transform:scale(1);
+
+}
+
+50%{
+
+transform:scale(1.06);
+
+box-shadow:
+
+0 0 60px rgba(20,184,166,.55),
+
+0 0 120px rgba(20,184,166,.20);
+
+}
+
+100%{
+
+transform:scale(1);
+
+}
+
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media(max-width:1000px){
+
+.study-hero{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+padding:40px;
+
+gap:45px;
+
+}
+
+.hero-right{
+
+width:100%;
+
+justify-content:center;
+
+}
+
+.hero-left h1{
+
+font-size:2.6rem;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.study-hero{
+
+padding:30px;
+
+}
+
+.hero-left h1{
+
+font-size:2rem;
+
+}
+
+.hero-left p{
+
+font-size:.95rem;
+
+}
+
+.hero-icon{
+
+width:120px;
+
+height:120px;
+
+font-size:58px;
+
+}
+
+}

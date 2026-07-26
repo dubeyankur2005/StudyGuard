@@ -1,0 +1,124 @@
+.chart-card{
+
+    background:rgba(21,29,45,.75);
+
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+
+    border-radius:24px;
+
+    padding:28px;
+
+    border:1px solid rgba(255,255,255,.05);
+
+}
+
+.chart-header{
+
+    margin-bottom:20px;
+
+}
+
+.chart-header h3{
+
+    color:#fff;
+
+    font-size:24px;
+
+    font-weight:700;
+
+}
+
+.chart-body{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+}
+
+.pie-wrapper{
+
+    width:58%;
+
+    height:280px;
+
+}
+
+.chart-legend{
+
+    width:42%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:28px;
+
+}
+
+.legend-item{
+
+    display:flex;
+
+    align-items:center;
+
+}
+
+.legend-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+}
+
+.legend-color{
+
+    width:16px;
+
+    height:16px;
+
+    border-radius:50%;
+
+}
+
+.legend-left h4{
+
+    color:#F8FAFC;
+
+    font-size:20px;
+
+    margin-bottom:8px;
+
+    font-weight:600;
+
+}
+
+.legend-left p{
+
+    color:#CBD5E1;
+
+    font-size:18px;
+
+}
+
+.recharts-sector{
+
+    stroke:#151D2D;
+
+    stroke-width:3px;
+
+}
+
+.recharts-tooltip-wrapper{
+
+    outline:none;
+
+}

@@ -1,0 +1,205 @@
+.recent-videos{
+
+    background:rgba(21,29,45,.75);
+
+    backdrop-filter:blur(16px);
+
+    -webkit-backdrop-filter:blur(16px);
+
+    border:1px solid rgba(255,255,255,.06);
+
+    border-radius:22px;
+
+    padding:28px;
+}
+
+.section-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+}
+
+.section-header h3{
+
+    color:#F8FAFC;
+
+    font-size:28px;
+
+    font-weight:600;
+}
+
+.view-btn{
+
+    background:#0F766E;
+
+    color:white;
+
+    border:none;
+
+    border-radius:12px;
+
+    padding:10px 22px;
+
+    font-size:15px;
+
+    font-weight:500;
+
+    transition:.3s;
+}
+
+.view-btn:hover{
+
+    background:#14B8A6;
+
+    transform:translateY(-2px);
+}
+
+.video-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+}
+
+.video-item{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:18px;
+
+    padding:14px 0;
+
+    border-bottom:1px solid rgba(255,255,255,.06);
+
+    transition:.3s;
+}
+
+.video-item:last-child{
+
+    border-bottom:none;
+}
+
+.video-item:hover{
+
+    transform:translateX(6px);
+}
+
+.thumbnail{
+
+    position:relative;
+
+    width:150px;
+
+    height:84px;
+
+    flex-shrink:0;
+}
+
+.thumbnail img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    border-radius:14px;
+}
+
+.duration{
+
+    position:absolute;
+
+    right:8px;
+
+    bottom:8px;
+
+    background:rgba(0,0,0,.75);
+
+    color:white;
+
+    font-size:12px;
+
+    padding:3px 8px;
+
+    border-radius:6px;
+
+    font-weight:600;
+}
+
+.video-info{
+
+    flex:1;
+}
+
+.video-info h4{
+
+    color:#F8FAFC;
+
+    font-size:20px;
+
+    font-weight:600;
+
+    margin-bottom:8px;
+}
+
+.video-info p{
+
+    color:#94A3B8;
+
+    font-size:16px;
+}
+
+.video-right{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:flex-end;
+
+    gap:12px;
+
+    min-width:170px;
+}
+
+.badge{
+
+    padding:8px 18px;
+
+    border-radius:999px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:white;
+}
+
+.badge.study{
+
+    background:#0F766E;
+}
+
+.badge.entertainment{
+
+    background:#EA580C;
+}
+
+.video-right small{
+
+    color:#94A3B8;
+
+    font-size:14px;
+}

@@ -1,0 +1,181 @@
+/* ======================================================
+   HISTORY PAGE
+====================================================== */
+
+.history-page{
+
+    min-height:100vh;
+
+    padding:42px;
+
+    background:#08111F;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+/* ======================================================
+   Background Glow
+====================================================== */
+
+.history-page::before{
+
+    content:"";
+
+    position:fixed;
+
+    top:-220px;
+
+    right:-220px;
+
+    width:550px;
+
+    height:550px;
+
+    border-radius:50%;
+
+    background:rgba(20,184,166,.06);
+
+    filter:blur(140px);
+
+    pointer-events:none;
+
+}
+
+.history-page::after{
+
+    content:"";
+
+    position:fixed;
+
+    left:-220px;
+
+    bottom:-220px;
+
+    width:520px;
+
+    height:520px;
+
+    border-radius:50%;
+
+    background:rgba(59,130,246,.05);
+
+    filter:blur(140px);
+
+    pointer-events:none;
+
+}
+
+/* ======================================================
+   Main Container
+====================================================== */
+
+.history-container{
+
+    position:relative;
+
+    z-index:2;
+
+    max-width:1550px;
+
+    margin:auto;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:42px;
+
+}
+
+/* ======================================================
+   Hero
+====================================================== */
+
+.history-container > :first-child{
+
+    margin-bottom:4px;
+
+}
+
+/* ======================================================
+   Stats
+====================================================== */
+
+.history-container > :nth-child(2){
+
+    margin-top:4px;
+
+}
+
+/* ======================================================
+   Table
+====================================================== */
+
+.history-container > :last-child{
+
+    margin-top:6px;
+
+}
+
+/* ======================================================
+   Animation
+====================================================== */
+
+.history-container>*{
+
+    animation:fadeUp .45s ease;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ======================================================
+   Responsive
+====================================================== */
+
+@media(max-width:1200px){
+
+    .history-page{
+
+        padding:30px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .history-page{
+
+        padding:20px;
+
+    }
+
+    .history-container{
+
+        gap:28px;
+
+    }
+
+}

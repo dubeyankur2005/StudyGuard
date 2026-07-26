@@ -1,0 +1,209 @@
+.settings-page{
+
+    padding:40px;
+
+    min-height:100vh;
+
+}
+
+.settings-header{
+
+    text-align:center;
+
+    margin-bottom:55px;
+
+}
+
+.settings-tag{
+
+    display:inline-block;
+
+    padding:10px 22px;
+
+    border-radius:999px;
+
+    background:rgba(20,184,166,.15);
+
+    color:#2DD4BF;
+
+    font-weight:600;
+
+    margin-bottom:20px;
+
+}
+
+.settings-header h1{
+
+    color:#fff;
+
+    font-size:52px;
+
+    margin-bottom:18px;
+
+}
+
+.settings-header p{
+
+    max-width:700px;
+
+    margin:auto;
+
+    color:#95A7C5;
+
+    font-size:18px;
+
+    line-height:1.7;
+
+}
+
+.settings-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+
+    gap:28px;
+
+}
+
+.setting-card{
+
+    background:linear-gradient(145deg,#151F33,#111A2C);
+
+    border:1px solid rgba(255,255,255,.05);
+
+    border-radius:24px;
+
+    padding:34px;
+
+    transition:.35s;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.setting-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:-80px;
+
+    right:-80px;
+
+    width:180px;
+
+    height:180px;
+
+    background:rgba(45,212,191,.08);
+
+    border-radius:50%;
+
+}
+
+.setting-card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:#14B8A6;
+
+    box-shadow:0 25px 55px rgba(0,0,0,.35);
+
+}
+
+.setting-icon{
+
+    width:72px;
+
+    height:72px;
+
+    border-radius:20px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:34px;
+
+    color:white;
+
+    background:linear-gradient(135deg,#14B8A6,#2563EB);
+
+    margin-bottom:26px;
+
+}
+
+.setting-card h3{
+
+    color:#fff;
+
+    font-size:28px;
+
+    margin-bottom:14px;
+
+}
+
+.setting-card p{
+
+    color:#95A7C5;
+
+    line-height:1.8;
+
+    font-size:16px;
+
+    min-height:60px;
+
+}
+
+.progress-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-top:26px;
+
+    padding:10px 18px;
+
+    border-radius:999px;
+
+    background:rgba(249,115,22,.12);
+
+    border:1px solid rgba(249,115,22,.25);
+
+    color:#F97316;
+
+    font-size:14px;
+
+    font-weight:600;
+
+}
+
+.progress-badge::before{
+
+    content:"🚧";
+
+}
+
+@media(max-width:900px){
+
+.settings-page{
+
+padding:24px;
+
+}
+
+.settings-header h1{
+
+font-size:38px;
+
+}
+
+}
