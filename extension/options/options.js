@@ -1,5 +1,4 @@
 const studyMode = document.getElementById("studyMode");
-const focusMode = document.getElementById("focusMode");
 const tracking = document.getElementById("tracking");
 
 const dailyGoal = document.getElementById("dailyGoal");
@@ -15,7 +14,7 @@ const saveBtn = document.getElementById("saveBtn");
 const status = document.getElementById("status");
 
 // ======================================
-// Load Settings
+// Initial Load
 // ======================================
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -23,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ======================================
-// Get Settings
+// Load Settings
 // ======================================
 
 async function loadSettings() {
@@ -38,12 +37,11 @@ async function loadSettings() {
 
     const settings = result.data;
 
-    studyMode.checked = settings.studyMode || false;
-    focusMode.checked = settings.focusMode || false;
+    studyMode.checked = settings.studyMode ?? false;
     tracking.checked = settings.trackingEnabled ?? true;
 
-    dailyGoal.value = settings.dailyStudyGoal || "";
-    weeklyGoal.value = settings.weeklyStudyGoal || "";
+    dailyGoal.value = settings.dailyStudyGoal ?? "";
+    weeklyGoal.value = settings.weeklyStudyGoal ?? "";
 
     allowedKeywords.value = (settings.allowedKeywords || []).join(", ");
 
@@ -53,7 +51,9 @@ async function loadSettings() {
 
     blockedChannels.value = (settings.blockedChannels || []).join(", ");
   } catch (error) {
-    console.error(error);
+    console.error("Failed to load settings:", error);
+
+    status.textContent = "Failed to load settings.";
   }
 }
 
@@ -66,12 +66,12 @@ saveBtn.addEventListener("click", saveSettings);
 async function saveSettings() {
   const settings = {
     studyMode: studyMode.checked,
-    focusMode: focusMode.checked,
+
     trackingEnabled: tracking.checked,
 
-    dailyStudyGoal: Number(dailyGoal.value),
+    dailyStudyGoal: Number(dailyGoal.value) || 0,
 
-    weeklyStudyGoal: Number(weeklyGoal.value),
+    weeklyStudyGoal: Number(weeklyGoal.value) || 0,
 
     allowedKeywords: allowedKeywords.value
       .split(",")
@@ -114,9 +114,11 @@ async function saveSettings() {
       setTimeout(() => {
         status.textContent = "";
       }, 3000);
+    } else {
+      status.textContent = "Failed to save settings.";
     }
   } catch (error) {
-    console.error(error);
+    console.error("Failed to save settings:", error);
 
     status.textContent = "Failed to save settings.";
   }

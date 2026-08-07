@@ -1,69 +1,115 @@
-const fs = require("fs/promises");
-const path = require("path");
+const mongoose = require("mongoose");
 
-const DATA_PATH = path.join(__dirname, "../data/videos.json");
+const videoSchema = new mongoose.Schema(
+  {
+    videoId: {
+      type: String,
+      required: true,
+      unique: true,
+    },
 
-const ensureFileExists = async () => {
-  try {
-    await fs.access(DATA_PATH);
-  } catch (error) {
-    await fs.mkdir(path.dirname(DATA_PATH), { recursive: true });
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+    },
 
-    await fs.writeFile(
-      DATA_PATH,
-      JSON.stringify([], null, 2)
-    );
+    channel: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+
+    thumbnail: {
+      type: String,
+      default: "",
+    },
+
+    duration: {
+      type: Number,
+      default: 0,
+    },
+
+    watchTime: {
+      type: Number,
+      default: 0,
+    },
+
+    category: {
+      type: String,
+      enum: ["Study", "Entertainment"],
+      required: true,
+    },
+
+    url: {
+      type: String,
+      default: "",
+    },
+
+    watchedAt: {
+      type: Date,
+      default: Date.now,
+    },
+
+    lastWatched: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  {
+    timestamps: true,
   }
-};
+);
+
+const Video = mongoose.model("Video", videoSchema);
 
 const getAllVideos = async () => {
-  await ensureFileExists();
-
-  const data = await fs.readFile(DATA_PATH, "utf-8");
-
-  return JSON.parse(data);
+  return await Video.find().sort({ watchedAt: -1 });
 };
 
-const saveAllVideos = async (videos) => {
-  await ensureFileExists();
+const saveVideo = async (videoData) => {
+  return await Video.create(videoData);
+};
 
-  await fs.writeFile(
-    DATA_PATH,
-    JSON.stringify(videos, null, 2)
-  );
+const updateVideo = async (id, updatedData) => {
+  return await Video.findByIdAndUpdate(id, updatedData, {
+    new: true,
+    runValidators: true,
+  });
+};
 
-  return true;
+const deleteVideo = async (id) => {
+  return await Video.findByIdAndDelete(id);
 };
 
 const getVideosByCategory = async (category) => {
-  const videos = await getAllVideos();
-
-  return videos.filter(
-    (video) => video.category === category
-  );
+  return await Video.find({ category });
 };
 
 const getVideosByChannel = async (channel) => {
-  const videos = await getAllVideos();
-
-  return videos.filter(
-    (video) => video.channel === channel
-  );
+  return await Video.find({ channel });
 };
 
 const getVideosByDate = async (date) => {
-  const videos = await getAllVideos();
+  const start = new Date(date);
+  start.setHours(0, 0, 0, 0);
 
-  return videos.filter(
-    (video) =>
-      new Date(video.watchedAt).toDateString() ===
-      new Date(date).toDateString()
-  );
+  const end = new Date(date);
+  end.setHours(23, 59, 59, 999);
+
+  return await Video.find({
+    watchedAt: {
+      $gte: start,
+      $lte: end,
+    },
+  });
 };
 
 module.exports = {
   getAllVideos,
-  saveAllVideos,
+  saveVideo,
+  updateVideo,
+  deleteVideo,
   getVideosByCategory,
   getVideosByChannel,
   getVideosByDate,

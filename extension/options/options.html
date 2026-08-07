@@ -2,7 +2,9 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0">
@@ -12,6 +14,7 @@
     <link
         rel="stylesheet"
         href="options.css">
+
 </head>
 
 <body>
@@ -20,9 +23,13 @@
 
         <h1>StudyGuard Settings</h1>
 
+        <!-- ========================= -->
+        <!-- General -->
+        <!-- ========================= -->
+
         <div class="card">
 
-            <h2>General Settings</h2>
+            <h2>General</h2>
 
             <div class="setting">
 
@@ -33,18 +40,6 @@
                 <input
                     type="checkbox"
                     id="studyMode">
-
-            </div>
-
-            <div class="setting">
-
-                <label for="focusMode">
-                    Enable Focus Mode
-                </label>
-
-                <input
-                    type="checkbox"
-                    id="focusMode">
 
             </div>
 
@@ -61,6 +56,10 @@
             </div>
 
         </div>
+
+        <!-- ========================= -->
+        <!-- Goals -->
+        <!-- ========================= -->
 
         <div class="card">
 
@@ -84,6 +83,10 @@
 
         </div>
 
+        <!-- ========================= -->
+        <!-- Keywords -->
+        <!-- ========================= -->
+
         <div class="card">
 
             <h2>Allowed Keywords</h2>
@@ -91,7 +94,7 @@
             <textarea
                 id="allowedKeywords"
                 rows="5"
-                placeholder="java, react, node..."></textarea>
+                placeholder="java, react, node, dsa"></textarea>
 
         </div>
 
@@ -102,9 +105,13 @@
             <textarea
                 id="blockedKeywords"
                 rows="5"
-                placeholder="gaming, prank..."></textarea>
+                placeholder="gaming, prank, roast"></textarea>
 
         </div>
+
+        <!-- ========================= -->
+        <!-- Channels -->
+        <!-- ========================= -->
 
         <div class="card">
 
@@ -113,7 +120,7 @@
             <textarea
                 id="allowedChannels"
                 rows="5"
-                placeholder="Apna College"></textarea>
+                placeholder="Apna College, CodeWithHarry"></textarea>
 
         </div>
 
@@ -128,8 +135,14 @@
 
         </div>
 
+        <!-- ========================= -->
+        <!-- Save -->
+        <!-- ========================= -->
+
         <button id="saveBtn">
+
             Save Settings
+
         </button>
 
         <p id="status"></p>

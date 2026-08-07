@@ -7,11 +7,10 @@ const getAllVideos = async () => {
 const getVideoById = async (id) => {
   const videos = await videoModel.getAllVideos();
 
-  return videos.find((video) => video.id === Number(id));
+  return videos.find((video) => video._id.toString() === id);
 };
 
 const addVideo = async (videoData) => {
-
   const videos = await videoModel.getAllVideos();
 
   const watchTime =
@@ -24,81 +23,36 @@ const addVideo = async (videoData) => {
   );
 
   if (existingVideo) {
-
     existingVideo.watchTime += watchTime;
+    existingVideo.lastWatched = new Date();
 
-    existingVideo.lastWatched = new Date().toISOString();
-
-    await videoModel.saveAllVideos(videos);
-
-    return existingVideo;
-
+    return await existingVideo.save();
   }
 
   const newVideo = {
-
-    id: videos.length
-      ? videos[videos.length - 1].id + 1
-      : 1,
-
     videoId: videoData.videoId,
-
     title: videoData.title,
-
     channel: videoData.channel,
-
     thumbnail: videoData.thumbnail,
-
     duration: videoData.duration,
-
     watchTime: watchTime,
-
     category: videoData.category,
-
-    watchedAt: new Date().toISOString(),
-
-    lastWatched: new Date().toISOString(),
-
+    url: videoData.url,
+    watchedAt: new Date(),
+    lastWatched: new Date(),
   };
 
-  videos.push(newVideo);
-
-  await videoModel.saveAllVideos(videos);
-
-  return newVideo;
-
+  return await videoModel.saveVideo(newVideo);
 };
 
 const updateVideo = async (id, updatedData) => {
-  const videos = await videoModel.getAllVideos();
-
-  const index = videos.findIndex((video) => video.id === Number(id));
-
-  if (index === -1) return null;
-
-  videos[index] = {
-    ...videos[index],
-    ...updatedData,
-    lastWatched: new Date().toISOString(),
-  };
-
-  await videoModel.saveAllVideos(videos);
-
-  return videos[index];
+  return await videoModel.updateVideo(id, updatedData);
 };
 
 const deleteVideo = async (id) => {
-  const videos = await videoModel.getAllVideos();
+  const deletedVideo = await videoModel.deleteVideo(id);
 
-  const index = videos.findIndex((video) => video.id === Number(id));
-
-  if (index === -1) return false;
-
-  videos.splice(index, 1);
-
-  await videoModel.saveAllVideos(videos);
-
-  return true;
+  return deletedVideo ? true : false;
 };
 
 const getSummary = async () => {
@@ -114,7 +68,8 @@ const getSummary = async () => {
     .filter((video) => video.category === "Entertainment")
     .reduce((sum, video) => sum + video.watchTime, 0);
 
-  const totalWatchTime = totalStudyTime + totalEntertainmentTime;
+  const totalWatchTime =
+    totalStudyTime + totalEntertainmentTime;
 
   return {
     totalVideos,

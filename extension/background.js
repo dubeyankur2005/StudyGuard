@@ -24,42 +24,42 @@ chrome.runtime.onInstalled.addListener(async () => {
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
-    switch (message.type) {
+  switch (message.type) {
 
-        case "VIDEO_TRACKED":
+    case "VIDEO_TRACKED":
 
-            saveVideo(message.payload, sendResponse);
+      saveVideo(message.payload, sendResponse);
 
-            return true;
+      return true;
 
-        case "GET_SETTINGS":
+    case "GET_SETTINGS":
 
-            getSettings(sendResponse);
+      getSettings(sendResponse);
 
-            return true;
+      return true;
 
-        case "GET_STUDY_MODE":
+    case "GET_STUDY_MODE":
 
-            getStudyMode(sendResponse);
+      getStudyMode(sendResponse);
 
-            return true;
+      return true;
 
-        case "UPDATE_SETTINGS":
+    case "UPDATE_SETTINGS":
 
-            updateSettings(message.payload, sendResponse);
+      updateSettings(message.payload, sendResponse);
 
-            return true;
+      return true;
 
-        default:
+    default:
 
-            sendResponse({
-                success: false,
-                message: "Unknown message type",
-            });
+      sendResponse({
+        success: false,
+        message: "Unknown message type",
+      });
 
-            return true;
+      return true;
 
-    }
+  }
 
 });
 
@@ -79,11 +79,9 @@ async function syncSettingsFromBackend() {
 
     if (!result.success) return;
 
-    chrome.storage.local.set(result.data);
+    await chrome.storage.local.set(result.data);
 
-    console.log(
-      "Settings Synced From Backend"
-    );
+    console.log("Settings Synced From Backend");
 
   } catch (error) {
 
@@ -112,7 +110,7 @@ async function getSettings(sendResponse) {
 
     if (result.success) {
 
-      chrome.storage.local.set(result.data);
+      await chrome.storage.local.set(result.data);
 
     }
 
@@ -137,29 +135,29 @@ async function getStudyMode(sendResponse) {
 
   console.log("GET_STUDY_MODE called");
 
-    try {
+  try {
 
-        const response = await fetch(
-            "http://localhost:3000/api/settings"
-        );
+    const response = await fetch(
+      `${API_BASE_URL}/settings`
+    );
 
-        const result = await response.json();
+    const result = await response.json();
 
-        sendResponse({
-            success: true,
-            studyMode: result.data.studyMode,
-        });
+    sendResponse({
+      success: true,
+      studyMode: result.data.studyMode,
+    });
 
-    } catch (error) {
+  } catch (error) {
 
-        console.error(error);
+    console.error(error);
 
-        sendResponse({
-            success: false,
-            message: error.message,
-        });
+    sendResponse({
+      success: false,
+      message: error.message,
+    });
 
-    }
+  }
 
 }
 
@@ -188,7 +186,9 @@ async function updateSettings(settings, sendResponse) {
 
     if (result.success) {
 
-      chrome.storage.local.set(result.data);
+      await chrome.storage.local.set(result.data);
+
+      console.log("Settings Updated");
 
     }
 

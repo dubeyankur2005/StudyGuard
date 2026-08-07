@@ -1,108 +1,528 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* ===========================================
+   Google Font
+=========================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+/* ===========================================
+   Reset
+=========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f3f4f6;
-    color: #1f2937;
+/* ===========================================
+   Body
+=========================================== */
+
+body{
+
+    font-family:"Inter",sans-serif;
+
+    background:
+    linear-gradient(
+        180deg,
+        #0F172A 0%,
+        #111827 100%
+    );
+
+    color:#F8FAFC;
+
+    min-height:100vh;
+
+    padding:40px 20px;
+
 }
 
-.container {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 20px;
+/* ===========================================
+   Container
+=========================================== */
+
+.container{
+
+    max-width:850px;
+
+    margin:auto;
+
 }
 
-h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #111827;
+/* ===========================================
+   Main Heading
+=========================================== */
+
+h1{
+
+    text-align:center;
+
+    font-size:38px;
+
+    font-weight:700;
+
+    color:#38BDF8;
+
+    margin-bottom:35px;
+
+    text-shadow:
+
+    0 0 18px rgba(56,189,248,.30);
+
 }
 
-.card {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+/* ===========================================
+   Card
+=========================================== */
+
+.card{
+
+    background:#1E293B;
+
+    border-radius:18px;
+
+    padding:24px;
+
+    margin-bottom:24px;
+
+    border:
+
+    1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+
+    0 15px 35px rgba(0,0,0,.30);
+
+    transition:.35s;
+
 }
 
-.card h2 {
-    margin-bottom: 18px;
-    font-size: 20px;
-    color: #111827;
+.card:hover{
+
+    transform:translateY(-4px);
+
 }
 
-.setting {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
+/* ===========================================
+   Card Heading
+=========================================== */
+
+.card h2{
+
+    font-size:23px;
+
+    margin-bottom:22px;
+
+    font-weight:600;
+
 }
 
-.setting label {
-    font-size: 16px;
-    font-weight: 500;
+/* Different colors */
+
+.card:nth-child(2) h2{
+
+    color:#22C55E;
+
 }
 
-input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
+.card:nth-child(3) h2{
+
+    color:#3B82F6;
+
 }
 
-input[type="number"] {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 15px;
-    outline: none;
+.card:nth-child(4) h2{
+
+    color:#8B5CF6;
+
 }
 
-input[type="number"]:focus {
-    border-color: #2563eb;
+.card:nth-child(5) h2{
+
+    color:#F97316;
+
 }
 
-textarea {
-    width: 100%;
-    resize: vertical;
-    min-height: 120px;
-    padding: 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 15px;
-    outline: none;
+.card:nth-child(6) h2{
+
+    color:#06B6D4;
+
 }
 
-textarea:focus {
-    border-color: #2563eb;
+.card:nth-child(7) h2{
+
+    color:#EAB308;
+
 }
 
-#saveBtn {
-    display: block;
-    width: 100%;
-    padding: 14px;
-    margin-top: 25px;
-    border: none;
-    border-radius: 10px;
-    background: #2563eb;
-    color: white;
-    font-size: 17px;
-    cursor: pointer;
-    transition: background 0.3s ease;
+/* ===========================================
+   Settings
+=========================================== */
+
+.setting{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:18px;
+
 }
 
-#saveBtn:hover {
-    background: #1d4ed8;
+.setting:last-child{
+
+    margin-bottom:0;
+
 }
 
-#status {
-    text-align: center;
-    margin-top: 18px;
-    color: #16a34a;
-    font-weight: 600;
+.setting label{
+
+    font-size:17px;
+
+    font-weight:600;
+
+    color:#E2E8F0;
+
+}
+
+/* ===========================================
+   Checkbox
+=========================================== */
+
+.setting input[type="checkbox"]{
+
+    width:22px;
+
+    height:22px;
+
+    accent-color:#22C55E;
+
+    cursor:pointer;
+
+}
+
+/* ===========================================
+   Number Input
+=========================================== */
+
+input[type="number"]{
+
+    width:100%;
+
+    margin-top:10px;
+
+    padding:15px 18px;
+
+    border-radius:14px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    background:#111827;
+
+    color:#F8FAFC;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:.3s;
+
+}
+
+input[type="number"]:focus{
+
+    border-color:#3B82F6;
+
+    box-shadow:
+
+    0 0 0 4px rgba(59,130,246,.20);
+
+}
+
+/* ===========================================
+   Textarea
+=========================================== */
+
+textarea{
+
+    width:100%;
+
+    min-height:130px;
+
+    margin-top:10px;
+
+    padding:16px;
+
+    resize:vertical;
+
+    border-radius:14px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    background:#111827;
+
+    color:#F8FAFC;
+
+    font-size:15px;
+
+    line-height:1.7;
+
+    outline:none;
+
+    transition:.3s;
+
+}
+
+textarea:focus{
+
+    border-color:#8B5CF6;
+
+    box-shadow:
+
+    0 0 0 4px rgba(139,92,246,.18);
+
+}
+
+/* ===========================================
+   Placeholder
+=========================================== */
+
+::placeholder{
+
+    color:#6B7280;
+
+}
+
+/* ===========================================
+   Save Button
+=========================================== */
+
+#saveBtn{
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:16px;
+
+    cursor:pointer;
+
+    margin-top:10px;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    color:white;
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #2563EB,
+        #1D4ED8
+    );
+
+    box-shadow:
+
+    0 12px 30px rgba(37,99,235,.35);
+
+    transition:.35s;
+
+}
+
+#saveBtn:hover{
+
+    transform:
+
+    translateY(-3px);
+
+    box-shadow:
+
+    0 18px 40px rgba(37,99,235,.45);
+
+}
+
+/* ===========================================
+   Status
+=========================================== */
+
+#status{
+
+    text-align:center;
+
+    margin-top:18px;
+
+    min-height:24px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    color:#22C55E;
+
+}
+
+/* ===========================================
+   Scrollbar
+=========================================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#111827;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#334155;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#475569;
+
+}
+
+/* ===========================================
+   Selection
+=========================================== */
+
+::selection{
+
+    background:#2563EB;
+
+    color:white;
+
+}
+
+/* ===========================================
+   Smooth Animation
+=========================================== */
+
+.card,
+textarea,
+input,
+button{
+
+    transition:all .35s ease;
+
+}
+
+/* ===========================================
+   Footer
+=========================================== */
+
+.container::after{
+
+    content:"🚀 StudyGuard • Stay Focused • Keep Learning";
+
+    display:block;
+
+    text-align:center;
+
+    margin-top:30px;
+
+    font-size:14px;
+
+    font-weight:500;
+
+    color:#60A5FA;
+
+    opacity:.85;
+
+}
+
+/* ===========================================
+   Responsive
+=========================================== */
+
+@media(max-width:768px){
+
+    body{
+
+        padding:20px;
+
+    }
+
+    h1{
+
+        font-size:30px;
+
+    }
+
+    .card{
+
+        padding:18px;
+
+    }
+
+    .setting{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:12px;
+
+    }
+
+}
+
+/* ===========================================
+   Extra Premium Touch
+=========================================== */
+
+.card{
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:-100%;
+
+    width:100%;
+
+    height:2px;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        transparent,
+        #38BDF8,
+        transparent
+    );
+
+    transition:.6s;
+
+}
+
+.card:hover::before{
+
+    left:100%;
+
 }

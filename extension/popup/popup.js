@@ -1,14 +1,14 @@
 const studyModeToggle = document.getElementById("studyMode");
-const focusModeToggle = document.getElementById("focusMode");
 const trackingToggle = document.getElementById("trackingEnabled");
 
 const todayStudyTime = document.getElementById("todayStudyTime");
 const todayEntertainmentTime = document.getElementById("todayEntertainmentTime");
 
 const dashboardBtn = document.getElementById("dashboardBtn");
+const settingsBtn = document.getElementById("settingsBtn");
 
 // =====================================
-// Load Settings
+// Initial Load
 // =====================================
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // =====================================
-// Get Settings
+// Load Settings
 // =====================================
 
 function loadSettings() {
@@ -26,13 +26,12 @@ function loadSettings() {
       type: "GET_SETTINGS",
     },
     (response) => {
-      if (!response.success) return;
+      if (!response || !response.success) return;
 
       const settings = response.settings;
 
-      studyModeToggle.checked = settings.studyMode;
-      focusModeToggle.checked = settings.focusMode;
-      trackingToggle.checked = settings.trackingEnabled;
+      studyModeToggle.checked = settings.studyMode ?? false;
+      trackingToggle.checked = settings.trackingEnabled ?? true;
     }
   );
 }
@@ -46,18 +45,16 @@ function saveSettings() {
     type: "UPDATE_SETTINGS",
     payload: {
       studyMode: studyModeToggle.checked,
-      focusMode: focusModeToggle.checked,
       trackingEnabled: trackingToggle.checked,
     },
   });
 }
 
 studyModeToggle.addEventListener("change", saveSettings);
-focusModeToggle.addEventListener("change", saveSettings);
 trackingToggle.addEventListener("change", saveSettings);
 
 // =====================================
-// Load Today's Stats
+// Load Today's Statistics
 // =====================================
 
 async function loadDashboardData() {
@@ -78,16 +75,24 @@ async function loadDashboardData() {
     todayEntertainmentTime.textContent =
       Math.floor(data.totalEntertainmentTime / 60) + " min";
   } catch (error) {
-    console.error(error);
+    console.error("Failed to load dashboard data:", error);
   }
 }
 
 // =====================================
-// Dashboard
+// Open Dashboard
 // =====================================
 
 dashboardBtn.addEventListener("click", () => {
   chrome.tabs.create({
     url: "http://localhost:5173",
   });
+});
+
+// =====================================
+// Open Settings Page
+// =====================================
+
+settingsBtn.addEventListener("click", () => {
+  chrome.runtime.openOptionsPage();
 });

@@ -4,7 +4,7 @@ const getAllVideos = async (req, res, next) => {
   try {
     const videos = await videoService.getAllVideos();
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       count: videos.length,
       data: videos,
@@ -27,7 +27,7 @@ const getVideoById = async (req, res, next) => {
       });
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: video,
     });
@@ -40,7 +40,7 @@ const addVideo = async (req, res, next) => {
   try {
     const newVideo = await videoService.addVideo(req.body);
 
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
       message: "Video saved successfully",
       data: newVideo,
@@ -63,7 +63,7 @@ const updateVideo = async (req, res, next) => {
       });
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: "Video updated successfully",
       data: updatedVideo,
@@ -86,7 +86,7 @@ const deleteVideo = async (req, res, next) => {
       });
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: "Video deleted successfully",
     });
@@ -99,7 +99,7 @@ const getSummary = async (req, res, next) => {
   try {
     const summary = await videoService.getSummary();
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: summary,
     });

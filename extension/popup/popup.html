@@ -2,28 +2,76 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
     <title>StudyGuard</title>
 
-    <link rel="stylesheet" href="popup.css">
+    <link
+        rel="stylesheet"
+        href="popup.css">
+
 </head>
 
 <body>
 
     <div class="container">
 
-        <h1>StudyGuard</h1>
+        <!-- ==========================
+             Header
+        =========================== -->
 
-        <p class="subtitle">
-            Stay Focused While Learning
-        </p>
+        <div class="header">
+
+            <h1>StudyGuard</h1>
+
+            <p class="subtitle">
+
+                Stay Focused While Learning 🚀
+
+            </p>
+
+        </div>
+
+        <!-- ==========================
+             Settings Card
+        =========================== -->
 
         <div class="card">
 
+            <!-- Study Mode -->
+
             <div class="setting">
 
-                <span>Study Mode</span>
+                <div class="setting-left">
+
+                    <div class="icon-circle study-icon">
+
+                        📚
+
+                    </div>
+
+                    <div class="setting-content">
+
+                        <h3>
+
+                            Study Mode
+
+                        </h3>
+
+                        <p>
+
+                            Block distracting content
+
+                        </p>
+
+                    </div>
+
+                </div>
 
                 <label class="switch">
 
@@ -37,25 +85,37 @@
 
             </div>
 
-            <div class="setting">
+            <div class="divider"></div>
 
-                <span>Focus Mode</span>
-
-                <label class="switch">
-
-                    <input
-                        type="checkbox"
-                        id="focusMode">
-
-                    <span class="slider"></span>
-
-                </label>
-
-            </div>
+            <!-- Tracking -->
 
             <div class="setting">
 
-                <span>Tracking</span>
+                <div class="setting-left">
+
+                    <div class="icon-circle tracking-icon">
+
+                        🎯
+
+                    </div>
+
+                    <div class="setting-content">
+
+                        <h3>
+
+                            Tracking
+
+                        </h3>
+
+                        <p>
+
+                            Track your watch time
+
+                        </p>
+
+                    </div>
+
+                </div>
 
                 <label class="switch">
 
@@ -72,33 +132,83 @@
 
         </div>
 
+        <!-- ==========================
+             Stats
+        =========================== -->
+
         <div class="stats">
 
-            <div class="stat-box">
+            <!-- Study -->
+
+            <div class="stat-box study-card">
+
+                <div class="stat-icon">
+
+                    📖
+
+                </div>
 
                 <h3 id="todayStudyTime">
+
                     0 min
+
                 </h3>
 
-                <p>Today's Study</p>
+                
+
+                <div class="wave"></div>
 
             </div>
 
-            <div class="stat-box">
+            <!-- Entertainment -->
+
+            <div class="stat-box entertainment-card">
+
+                <div class="stat-icon">
+
+                    🍿
+
+                </div>
 
                 <h3 id="todayEntertainmentTime">
+
                     0 min
+
                 </h3>
 
-                <p>Entertainment</p>
+                
+
+                <div class="wave"></div>
 
             </div>
 
         </div>
 
+        <!-- ==========================
+             Buttons
+        =========================== -->
+
         <button id="dashboardBtn">
-            Open Dashboard
+
+            📊 Open Dashboard
+
         </button>
+
+        <button id="settingsBtn">
+
+            ⚙ Settings
+
+        </button>
+
+        <!-- ==========================
+             Footer
+        =========================== -->
+
+        <div class="footer">
+
+            💜 Stay Consistent • Keep Learning • Achieve More
+
+        </div>
 
     </div>
 
