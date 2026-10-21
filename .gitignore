@@ -1,0 +1,58 @@
+﻿# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies and generated build output
+node_modules/
+dist/
+build/
+coverage/
+.vite/
+
+# Logs and debug output
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Temporary files and common caches
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+*.orig
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor workspace files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+
+# Private keys and certificates
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+*.der
+
+# Local databases and database sidecar files
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.sqlite-journal
