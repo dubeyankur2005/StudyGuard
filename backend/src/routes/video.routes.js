@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const protect = require("../middlewares/authMiddleware");
+router.use(protect);
 
 const {
   getAllVideos,

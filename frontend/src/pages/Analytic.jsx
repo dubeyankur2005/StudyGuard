@@ -17,34 +17,20 @@ const Analytics = () => {
     const [loading,setLoading]=useState(true);
 
     useEffect(()=>{
-
+        let active = true;
+        const fetchAnalytics = async () => {
+            try {
+                const response = await getAnalytics();
+                if (active) setAnalytics(response.data.data);
+            } catch (error) {
+                console.log(error);
+            } finally {
+                if (active) setLoading(false);
+            }
+        };
         fetchAnalytics();
-
+        return () => { active = false; };
     },[]);
-
-    async function fetchAnalytics(){
-
-        try{
-
-            const response=await getAnalytics();
-
-            setAnalytics(response.data.data);
-
-        }
-
-        catch(error){
-
-            console.log(error);
-
-        }
-
-        finally{
-
-            setLoading(false);
-
-        }
-
-    }
 
     if(loading){
 

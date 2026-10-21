@@ -20,7 +20,7 @@
 
 body{
 
-    width:100px;
+    width:360px;
 
     background:
     radial-gradient(circle at top,#1E3A8A,#0F172A 60%);
@@ -777,3 +777,41 @@ button{
     }
 
 }
+
+/* Sign-in and account panels */
+.container{padding:18px;}
+.header{margin-bottom:16px;}
+.header h1{font-size:28px;}
+.subtitle{font-size:12px;margin-top:5px;}
+.card{padding:18px;border-radius:18px;margin-bottom:16px;background:linear-gradient(145deg,rgba(30,41,59,.98),rgba(17,29,49,.98));border-color:rgba(125,166,220,.16);}
+.auth-heading{display:flex;align-items:center;gap:12px;margin:0 0 18px;}
+.auth-mark{width:40px;height:40px;display:grid;place-items:center;border-radius:12px;color:#8be5dc;background:linear-gradient(135deg,rgba(20,184,166,.2),rgba(59,130,246,.24));border:1px solid rgba(94,216,206,.25);font-size:20px;}
+.auth-heading h2{font-size:17px;font-weight:700;letter-spacing:-.2px;}
+.auth-heading p{margin-top:4px;color:#9aabc2;font-size:11px;}
+.auth-form{display:grid;gap:8px;}
+.auth-form label{margin-top:4px;color:#dce7f5;font-size:11px;font-weight:600;}
+.auth-form input{width:100%;height:42px;padding:0 12px;border-radius:9px;border:1px solid rgba(148,171,204,.2);outline:none;background:rgba(9,17,31,.72);color:#f8fafc;font:inherit;font-size:12px;transition:border-color .18s ease,box-shadow .18s ease;}
+.auth-form input::placeholder{color:#7789a2;}
+.auth-form input:focus{border-color:#38bdf8;box-shadow:0 0 0 3px rgba(56,189,248,.13);}
+button.auth-submit{height:44px;margin-top:8px;padding:0 14px;display:flex;align-items:center;justify-content:center;gap:9px;border-radius:10px;color:#071526;background:linear-gradient(110deg,#38bdf8,#4f8df7);box-shadow:0 8px 20px rgba(37,99,235,.22);font-size:13px;}
+button.auth-submit:hover:not(:disabled){transform:translateY(-1px);filter:brightness(1.07);box-shadow:0 11px 23px rgba(37,99,235,.3);}
+button.auth-submit:disabled{cursor:wait;opacity:.65;}
+.auth-status,.settings-status{min-height:0;margin:8px 0 0;color:#8de4d7;font-size:11px;line-height:1.45;}
+.auth-status:empty,.settings-status:empty{display:none;}
+.auth-status.is-error,.settings-status.is-error{padding:8px 10px;border:1px solid rgba(251,113,133,.25);border-radius:8px;color:#ffb4bf;background:rgba(136,39,58,.18);}
+.account-summary{display:flex;align-items:center;gap:11px;padding:2px 0 14px;}
+.account-avatar{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;color:#86e1d4;background:rgba(20,184,166,.16);border:1px solid rgba(45,212,191,.22);font-size:17px;}
+.account-summary p{color:#9aabc2;font-size:11px;}
+.account-summary strong{display:block;margin-top:4px;color:#f4f8ff;font-size:13px;font-weight:650;}
+button.signout-btn{width:auto;height:auto;padding:7px 12px;border:1px solid rgba(148,171,204,.2);border-radius:8px;color:#c7d4e5;background:rgba(9,17,31,.45);font-size:11px;}
+button.signout-btn:hover{border-color:rgba(56,189,248,.45);color:white;background:#273549;}
+.switch input:disabled+.slider{cursor:not-allowed;opacity:.42;}
+.switch:focus-within .slider{outline:2px solid #38bdf8;outline-offset:2px;}
+.setting-content p{line-height:1.4;}
+.stats{gap:12px;margin-bottom:16px;}
+.stat-box{min-height:140px;padding:14px;border-radius:16px;}
+.stat-icon{width:42px;height:42px;margin-bottom:10px;font-size:21px;}
+.stat-box h3{font-size:30px;margin-bottom:6px;}
+.stat-box p{font-size:13px;}
+button#dashboardBtn,button#settingsBtn{height:44px;border-radius:11px;font-size:13px;}
+.footer{margin-top:14px;font-size:10px;}

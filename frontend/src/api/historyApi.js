@@ -1,15 +1,13 @@
-import axios from "axios";
-
-const API = "http://localhost:3000/api/videos";
+import client from "./client";
 
 export const getHistory = () => {
 
-    return axios.get(API);
+    return client.get("/videos");
 
 };
 
 export const deleteHistory = (id) => {
 
-    return axios.delete(`${API}/${id}`);
+    return client.delete(`/videos/${id}`);
 
 };

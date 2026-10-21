@@ -11,6 +11,7 @@ import {
   PieChart,
   Pie,
   Cell,
+  Legend,
 } from "recharts";
 
 const COLORS = [
@@ -28,6 +29,7 @@ const AnalyticsActivity = ({ analytics }) => {
 
   const subjects =
     analytics.subjectDistribution || [];
+  const hasClassifiableSubjects = subjects.some((subject) => subject.name !== "Unclassified");
 
   return (
 
@@ -109,7 +111,7 @@ const AnalyticsActivity = ({ analytics }) => {
 
         </div>
 
-        <ResponsiveContainer
+        {hasClassifiableSubjects ? <ResponsiveContainer
           width="100%"
           height={330}
         >
@@ -120,7 +122,8 @@ const AnalyticsActivity = ({ analytics }) => {
 
               data={subjects}
 
-              dataKey="value"
+              dataKey="percentage"
+              nameKey="name"
 
               innerRadius={75}
 
@@ -134,7 +137,7 @@ const AnalyticsActivity = ({ analytics }) => {
 
                   <Cell
 
-                    key={index}
+                    key={item.name}
 
                     fill={
                       COLORS[
@@ -150,11 +153,15 @@ const AnalyticsActivity = ({ analytics }) => {
 
             </Pie>
 
-            <Tooltip/>
+            <Tooltip formatter={(value) => [`${value}%`, "Study videos"]} />
+            <Legend />
 
           </PieChart>
 
-        </ResponsiveContainer>
+        </ResponsiveContainer> : <div className="subject-distribution-empty" role="status">
+          <strong>No classifiable subjects yet</strong>
+          <span>{subjects.length ? `${subjects.find((subject) => subject.name === "Unclassified")?.count || 0} study videos could not be classified from their titles.` : "Study video history will appear here once available."}</span>
+        </div>}
 
       </div>
 

@@ -1,26 +1,24 @@
 const videoModel = require("../models/video.model");
 
-const getAllVideos = async () => {
-  return await videoModel.getAllVideos();
+const getAllVideos = async (owner) => {
+  return await videoModel.getAllVideos(owner);
 };
 
-const getVideoById = async (id) => {
-  const videos = await videoModel.getAllVideos();
-
-  return videos.find((video) => video._id.toString() === id);
+const getVideoById = async (id, owner) => {
+  const mongoose = require("mongoose");
+  if (!mongoose.isValidObjectId(id)) return null;
+  return videoModel.Video.findOne({ _id: id, owner });
 };
 
-const addVideo = async (videoData) => {
-  const videos = await videoModel.getAllVideos();
+const addVideo = async (videoData, owner) => {
+  const videos = await videoModel.getAllVideos(owner);
 
   const watchTime =
     videoData.watchTime ??
     videoData.totalWatchTime ??
     0;
 
-  const existingVideo = videos.find(
-    (video) => video.videoId === videoData.videoId
-  );
+  const existingVideo = videos.find((video) => video.videoId === videoData.videoId);
 
   if (existingVideo) {
     existingVideo.watchTime += watchTime;
@@ -30,6 +28,7 @@ const addVideo = async (videoData) => {
   }
 
   const newVideo = {
+    owner,
     videoId: videoData.videoId,
     title: videoData.title,
     channel: videoData.channel,
@@ -45,18 +44,18 @@ const addVideo = async (videoData) => {
   return await videoModel.saveVideo(newVideo);
 };
 
-const updateVideo = async (id, updatedData) => {
-  return await videoModel.updateVideo(id, updatedData);
+const updateVideo = async (id, owner, updatedData) => {
+  return await videoModel.updateVideo(id, owner, updatedData);
 };
 
-const deleteVideo = async (id) => {
-  const deletedVideo = await videoModel.deleteVideo(id);
+const deleteVideo = async (id, owner) => {
+  const deletedVideo = await videoModel.deleteVideo(id, owner);
 
   return deletedVideo ? true : false;
 };
 
-const getSummary = async () => {
-  const videos = await videoModel.getAllVideos();
+const getSummary = async (owner) => {
+  const videos = await videoModel.getAllVideos(owner);
 
   const totalVideos = videos.length;
 

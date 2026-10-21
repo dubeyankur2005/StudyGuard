@@ -15,20 +15,20 @@ const History = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let active = true;
+    const loadHistory = async () => {
+      try {
+        const response = await getHistory();
+        if (active) setVideos(response.data.data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        if (active) setLoading(false);
+      }
+    };
     loadHistory();
+    return () => { active = false; };
   }, []);
-
-  async function loadHistory() {
-    try {
-      const response = await getHistory();
-
-      setVideos(response.data.data);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  }
 
   async function handleDelete(id) {
     try {

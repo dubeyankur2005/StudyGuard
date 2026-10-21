@@ -2,7 +2,7 @@ const videoService = require("../services/video.service");
 
 const getAllVideos = async (req, res, next) => {
   try {
-    const videos = await videoService.getAllVideos();
+    const videos = await videoService.getAllVideos(req.user._id);
 
     return res.status(200).json({
       success: true,
@@ -18,7 +18,7 @@ const getVideoById = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const video = await videoService.getVideoById(id);
+    const video = await videoService.getVideoById(id, req.user._id);
 
     if (!video) {
       return res.status(404).json({
@@ -38,7 +38,7 @@ const getVideoById = async (req, res, next) => {
 
 const addVideo = async (req, res, next) => {
   try {
-    const newVideo = await videoService.addVideo(req.body);
+    const newVideo = await videoService.addVideo(req.body, req.user._id);
 
     return res.status(201).json({
       success: true,
@@ -54,7 +54,7 @@ const updateVideo = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const updatedVideo = await videoService.updateVideo(id, req.body);
+    const updatedVideo = await videoService.updateVideo(id, req.user._id, req.body);
 
     if (!updatedVideo) {
       return res.status(404).json({
@@ -77,7 +77,7 @@ const deleteVideo = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const deleted = await videoService.deleteVideo(id);
+    const deleted = await videoService.deleteVideo(id, req.user._id);
 
     if (!deleted) {
       return res.status(404).json({
@@ -97,7 +97,7 @@ const deleteVideo = async (req, res, next) => {
 
 const getSummary = async (req, res, next) => {
   try {
-    const summary = await videoService.getSummary();
+    const summary = await videoService.getSummary(req.user._id);
 
     return res.status(200).json({
       success: true,

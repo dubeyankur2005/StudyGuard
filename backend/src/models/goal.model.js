@@ -1,9 +1,12 @@
 const fs = require("fs/promises");
 const path = require("path");
 
-const DATA_PATH = path.join(__dirname, "../data/goals.json");
+const DATA_DIR = path.join(__dirname, "../data/users");
+const dataPath = (owner) => path.join(DATA_DIR, `${String(owner)}-goals.json`);
 
-const ensureFileExists = async () => {
+const ensureFileExists = async (owner) => {
+  if (!owner || !/^[a-f\d]{24}$/i.test(String(owner))) throw new Error("Invalid owner");
+  const DATA_PATH = dataPath(owner);
   try {
     await fs.access(DATA_PATH);
   } catch (error) {
@@ -16,16 +19,18 @@ const ensureFileExists = async () => {
   }
 };
 
-const getGoals = async () => {
-  await ensureFileExists();
+const getGoals = async (owner) => {
+  await ensureFileExists(owner);
+  const DATA_PATH = dataPath(owner);
 
   const data = await fs.readFile(DATA_PATH, "utf-8");
 
   return JSON.parse(data);
 };
 
-const saveGoals = async (goals) => {
-  await ensureFileExists();
+const saveGoals = async (owner, goals) => {
+  await ensureFileExists(owner);
+  const DATA_PATH = dataPath(owner);
 
   await fs.writeFile(
     DATA_PATH,
@@ -35,20 +40,20 @@ const saveGoals = async (goals) => {
   return true;
 };
 
-const getGoalById = async (id) => {
-  const goals = await getGoals();
+const getGoalById = async (owner, id) => {
+  const goals = await getGoals(owner);
 
   return goals.find((goal) => goal.id === Number(id));
 };
 
-const getCompletedGoals = async () => {
-  const goals = await getGoals();
+const getCompletedGoals = async (owner) => {
+  const goals = await getGoals(owner);
 
   return goals.filter((goal) => goal.completed);
 };
 
-const getPendingGoals = async () => {
-  const goals = await getGoals();
+const getPendingGoals = async (owner) => {
+  const goals = await getGoals(owner);
 
   return goals.filter((goal) => !goal.completed);
 };

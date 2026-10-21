@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 
 const videoSchema = new mongoose.Schema(
   {
+    owner: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true, index: true },
     videoId: {
       type: String,
       required: true,
-      unique: true,
     },
 
     title: {
@@ -61,36 +61,39 @@ const videoSchema = new mongoose.Schema(
   }
 );
 
+videoSchema.index({ owner: 1, videoId: 1 }, { unique: true });
 const Video = mongoose.model("Video", videoSchema);
 
-const getAllVideos = async () => {
-  return await Video.find().sort({ watchedAt: -1 });
+const getAllVideos = async (owner) => {
+  return Video.find({ owner }).sort({ watchedAt: -1 });
 };
 
 const saveVideo = async (videoData) => {
   return await Video.create(videoData);
 };
 
-const updateVideo = async (id, updatedData) => {
-  return await Video.findByIdAndUpdate(id, updatedData, {
+const updateVideo = async (id, owner, updatedData) => {
+  const allowedFields = ["title", "channel", "thumbnail", "duration", "watchTime", "category", "url"];
+  const safeData = Object.fromEntries(Object.entries(updatedData || {}).filter(([key]) => allowedFields.includes(key)));
+  return await Video.findOneAndUpdate({ _id: id, owner }, safeData, {
     new: true,
     runValidators: true,
   });
 };
 
-const deleteVideo = async (id) => {
-  return await Video.findByIdAndDelete(id);
+const deleteVideo = async (id, owner) => {
+  return await Video.findOneAndDelete({ _id: id, owner });
 };
 
-const getVideosByCategory = async (category) => {
-  return await Video.find({ category });
+const getVideosByCategory = async (category, owner) => {
+  return await Video.find({ category, owner });
 };
 
-const getVideosByChannel = async (channel) => {
-  return await Video.find({ channel });
+const getVideosByChannel = async (channel, owner) => {
+  return await Video.find({ channel, owner });
 };
 
-const getVideosByDate = async (date) => {
+const getVideosByDate = async (date, owner) => {
   const start = new Date(date);
   start.setHours(0, 0, 0, 0);
 
@@ -98,6 +101,7 @@ const getVideosByDate = async (date) => {
   end.setHours(23, 59, 59, 999);
 
   return await Video.find({
+    owner,
     watchedAt: {
       $gte: start,
       $lte: end,
@@ -106,6 +110,7 @@ const getVideosByDate = async (date) => {
 };
 
 module.exports = {
+  Video,
   getAllVideos,
   saveVideo,
   updateVideo,

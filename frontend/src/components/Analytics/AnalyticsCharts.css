@@ -133,6 +133,9 @@
 
 }
 
+.subject-distribution-empty{min-height:330px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#9DB2CE;text-align:center;line-height:1.5}
+.subject-distribution-empty strong{color:#fff}
+
 .legend-item{
 
     display:flex;

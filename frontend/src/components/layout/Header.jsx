@@ -1,4 +1,5 @@
 import "./Header.css";
+import { useAuth } from "../../auth/authContext";
 import {
   BsList,
   BsSearch,
@@ -8,6 +9,7 @@ import {
 } from "react-icons/bs";
 
 function Header() {
+  const { user, logout } = useAuth();
   return (
     <header className="header">
 
@@ -50,8 +52,8 @@ function Header() {
           />
 
           <div className="profile-info">
-            <h5>Ankur Dubey</h5>
-            <p>Student</p>
+            <h5>{user?.name || user?.email}</h5>
+            <button type="button" onClick={logout}>Log out</button>
           </div>
 
         </div>

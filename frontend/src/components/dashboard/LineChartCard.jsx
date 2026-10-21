@@ -19,22 +19,18 @@ const LineChartCard = () => {
   const [weeklyData, setWeeklyData] = useState([]);
 
   useEffect(() => {
+    let active = true;
+    const fetchWeeklyAnalytics = async () => {
+      try {
+        const response = await getWeeklyAnalytics();
+        if (active) setWeeklyData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
     fetchWeeklyAnalytics();
+    return () => { active = false; };
   }, []);
-
-  async function fetchWeeklyAnalytics() {
-    try {
-
-      const response = await getWeeklyAnalytics();
-
-      setWeeklyData(response.data);
-
-    } catch (error) {
-
-      console.error(error);
-
-    }
-  }
 
   if (!weeklyData.length) {
     return <p>Loading...</p>;

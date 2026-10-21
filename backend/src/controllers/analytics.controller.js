@@ -2,7 +2,7 @@ const analyticsService = require("../services/analytics.service");
 
 const getDashboardAnalytics = async (req, res, next) => {
   try {
-    const analytics = await analyticsService.getDashboardAnalytics();
+    const analytics = await analyticsService.getDashboardAnalytics(req.user._id);
 
     res.status(200).json({
       success: true,
@@ -15,7 +15,7 @@ const getDashboardAnalytics = async (req, res, next) => {
 
 const getDailyAnalytics = async (req, res, next) => {
   try {
-    const analytics = await analyticsService.getDailyAnalytics();
+    const analytics = await analyticsService.getDailyAnalytics(req.user._id);
 
     res.status(200).json({
       success: true,
@@ -28,7 +28,7 @@ const getDailyAnalytics = async (req, res, next) => {
 
 const getWeeklyAnalytics = async (req, res, next) => {
   try {
-    const analytics = await analyticsService.getWeeklyAnalytics();
+    const analytics = await analyticsService.getWeeklyAnalytics(req.user._id);
 
     res.status(200).json({
       success: true,
@@ -41,7 +41,7 @@ const getWeeklyAnalytics = async (req, res, next) => {
 
 const getMonthlyAnalytics = async (req, res, next) => {
   try {
-    const analytics = await analyticsService.getMonthlyAnalytics();
+    const analytics = await analyticsService.getMonthlyAnalytics(req.user._id);
 
     res.status(200).json({
       success: true,
@@ -56,7 +56,7 @@ const getTopSubjects = async (req, res, next) => {
   try {
 
     const subjects =
-      await analyticsService.getTopSubjects();
+      await analyticsService.getTopSubjects(req.user._id);
 
     res.status(200).json({
       success: true,

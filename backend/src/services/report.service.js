@@ -1,7 +1,7 @@
 const videoModel = require("../models/video.model");
 
-const getWeeklyReport = async () => {
-  const videos = await videoModel.getAllVideos();
+const getWeeklyReport = async (owner) => {
+  const videos = await videoModel.getAllVideos(owner);
 
   const sevenDaysAgo = new Date();
   sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
@@ -52,8 +52,8 @@ const getWeeklyReport = async () => {
   };
 };
 
-const exportCSV = async () => {
-  const report = await getWeeklyReport();
+const exportCSV = async (owner) => {
+  const report = await getWeeklyReport(owner);
 
   const rows = [
     [
@@ -78,8 +78,8 @@ const exportCSV = async () => {
   return rows.map((row) => row.join(",")).join("\n");
 };
 
-const exportPDF = async () => {
-  const report = await getWeeklyReport();
+const exportPDF = async (owner) => {
+  const report = await getWeeklyReport(owner);
 
   const content = `
 StudyGuard Weekly Report

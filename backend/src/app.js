@@ -8,6 +8,7 @@ const analyticsRoutes = require("./routes/analytics.routes");
 const goalRoutes = require("./routes/goal.routes");
 const settingsRoutes = require("./routes/settings.routes");
 const reportRoutes = require("./routes/report.routes");
+const authRoutes = require("./routes/auth.routes");
 
 const errorHandler = require("./middlewares/errorHandler");
 
@@ -16,6 +17,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).json({

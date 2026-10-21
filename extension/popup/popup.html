@@ -43,6 +43,27 @@
 
         <div class="card">
 
+            <div id="authPanel" class="auth-panel">
+                <div class="auth-heading">
+                    <span class="auth-mark" aria-hidden="true">SG</span>
+                    <div><h2>Welcome back</h2><p>Sign in to sync your focus settings.</p></div>
+                </div>
+                <form id="loginForm" class="auth-form">
+                    <label for="loginEmail">Email address</label>
+                    <input id="loginEmail" type="email" placeholder="you@example.com" autocomplete="username" required>
+                    <label for="loginPassword">Password</label>
+                    <input id="loginPassword" type="password" placeholder="Your password" autocomplete="current-password" required>
+                    <button id="loginBtn" class="auth-submit" type="submit"><span>Sign in</span><span aria-hidden="true">&gt;</span></button>
+                </form>
+                <p id="authStatus" class="auth-status" role="status" aria-live="polite"></p>
+            </div>
+
+            <div id="accountPanel" hidden>
+                <div class="account-summary"><span class="account-avatar" aria-hidden="true">OK</span><p>Signed in as<strong id="accountEmail"></strong></p></div>
+                <button id="logoutBtn" class="signout-btn" type="button">Sign out</button>
+            </div>
+            <p id="settingsStatus" class="settings-status" role="status" aria-live="polite"></p>
+
             <!-- Study Mode -->
 
             <div class="setting">

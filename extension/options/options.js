@@ -12,6 +12,7 @@ const blockedChannels = document.getElementById("blockedChannels");
 
 const saveBtn = document.getElementById("saveBtn");
 const status = document.getElementById("status");
+const send = (type, payload) => new Promise((resolve) => chrome.runtime.sendMessage({ type, payload }, resolve));
 
 // ======================================
 // Initial Load
@@ -27,11 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function loadSettings() {
   try {
-    const response = await fetch(
-      "http://localhost:3000/api/settings"
-    );
-
-    const result = await response.json();
+    const result = await send("GET_SETTINGS");
+    if (!result?.success && result?.message) { status.textContent = result.message; return; }
 
     if (!result.success) return;
 
@@ -95,18 +93,7 @@ async function saveSettings() {
   };
 
   try {
-    const response = await fetch(
-      "http://localhost:3000/api/settings",
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(settings),
-      }
-    );
-
-    const result = await response.json();
+    const result = await send("UPDATE_SETTINGS", settings);
 
     if (result.success) {
       status.textContent = "Settings saved successfully.";

@@ -2,7 +2,7 @@ const reportService = require("../services/report.service");
 
 const getWeeklyReport = async (req, res, next) => {
   try {
-    const report = await reportService.getWeeklyReport();
+    const report = await reportService.getWeeklyReport(req.user._id);
 
     res.status(200).json({
       success: true,
@@ -15,7 +15,7 @@ const getWeeklyReport = async (req, res, next) => {
 
 const exportCSV = async (req, res, next) => {
   try {
-    const csv = await reportService.exportCSV();
+    const csv = await reportService.exportCSV(req.user._id);
 
     res.setHeader("Content-Type", "text/csv");
     res.setHeader(
@@ -31,7 +31,7 @@ const exportCSV = async (req, res, next) => {
 
 const exportPDF = async (req, res, next) => {
   try {
-    const pdfBuffer = await reportService.exportPDF();
+    const pdfBuffer = await reportService.exportPDF(req.user._id);
 
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader(

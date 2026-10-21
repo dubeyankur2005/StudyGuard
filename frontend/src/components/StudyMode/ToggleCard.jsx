@@ -14,26 +14,24 @@ const ToggleCard = () => {
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-
+    let active = true;
+    const loadSettings = async () => {
+      try {
+        const response = await getSettings();
+        if (active) setEnabled(response.data.studyMode);
+      } catch (error) {
+        console.error(error);
+      }
+    };
     loadSettings();
-
+    const refreshTimer = window.setInterval(loadSettings, 5000);
+    window.addEventListener("focus", loadSettings);
+    return () => {
+      active = false;
+      window.clearInterval(refreshTimer);
+      window.removeEventListener("focus", loadSettings);
+    };
   }, []);
-
-  async function loadSettings() {
-
-    try {
-
-      const response = await getSettings();
-
-      setEnabled(response.data.studyMode);
-
-    } catch (error) {
-
-      console.error(error);
-
-    }
-
-  }
 
   async function handleToggle() {
 

@@ -19,26 +19,24 @@ const StatusCard = () => {
   });
 
   useEffect(() => {
-
+    let active = true;
+    const loadStatus = async () => {
+      try {
+        const response = await getStudyModeStatus();
+        if (active) setStatus(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
     loadStatus();
-
+    const refreshTimer = window.setInterval(loadStatus, 5000);
+    window.addEventListener("focus", loadStatus);
+    return () => {
+      active = false;
+      window.clearInterval(refreshTimer);
+      window.removeEventListener("focus", loadStatus);
+    };
   }, []);
-
-  async function loadStatus() {
-
-    try {
-
-      const response = await getStudyModeStatus();
-
-      setStatus(response.data);
-
-    } catch (error) {
-
-      console.error(error);
-
-    }
-
-  }
 
   function formatTime(seconds) {
 

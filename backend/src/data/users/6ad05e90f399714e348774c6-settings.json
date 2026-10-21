@@ -1,0 +1,32 @@
+{
+  "darkMode": false,
+  "studyMode": false,
+  "focusMode": false,
+  "dailyStudyGoal": 180,
+  "weeklyStudyGoal": 1260,
+  "reminderTime": "18:00",
+  "breakReminder": 45,
+  "allowedKeywords": [
+    "java",
+    "javascript",
+    "react",
+    "node",
+    "express",
+    "mongodb",
+    "dsa",
+    "python",
+    "sql",
+    "tutorial",
+    "course",
+    "lecture"
+  ],
+  "blockedKeywords": [
+    "gaming",
+    "sex",
+    "xxx"
+  ],
+  "allowedChannels": [],
+  "blockedChannels": [],
+  "updatedAt": "2026-10-21T19:02:44.096Z",
+  "trackingEnabled": false
+}

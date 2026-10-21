@@ -1,11 +1,9 @@
-import axios from "axios";
-
-const API_URL = "http://localhost:3000/api/analytics";
+import client from "./client";
 
 // Complete Analytics
 export const getAnalytics = async () => {
 
-  const response = await axios.get(API_URL);
+  const response = await client.get("/analytics");
 
   return response;
 
@@ -14,9 +12,7 @@ export const getAnalytics = async () => {
 // Weekly Analytics
 export const getWeeklyAnalytics = async () => {
 
-  const response = await axios.get(
-    `${API_URL}/weekly`
-  );
+  const response = await client.get("/analytics/weekly");
 
   return response.data;
 

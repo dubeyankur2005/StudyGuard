@@ -1,4 +1,5 @@
 const videoModel = require("../models/video.model");
+const { buildSubjectDistribution } = require("../utils/subjectAnalytics");
 
 // ===============================
 // Dashboard Analytics
@@ -8,9 +9,9 @@ const videoModel = require("../models/video.model");
 // Dashboard Analytics
 // ===============================
 
-const getDashboardAnalytics = async () => {
+const getDashboardAnalytics = async (owner) => {
 
-  const videos = await videoModel.getAllVideos();
+  const videos = await videoModel.getAllVideos(owner);
 
   const totalVideos = videos.length;
 
@@ -121,83 +122,7 @@ const getDashboardAnalytics = async () => {
   // Subject Distribution
   // ===============================
 
-  const SUBJECT_KEYWORDS = {
-
-    Java: ["java"],
-
-    JavaScript: ["javascript", "js"],
-
-    React: ["react"],
-
-    Node: ["node", "express"],
-
-    Python: ["python"],
-
-    DSA: ["dsa", "leetcode"],
-
-    SQL: ["sql"],
-
-    HTML: ["html"],
-
-    CSS: ["css"],
-
-    MongoDB: ["mongodb"],
-
-  };
-
-  const subjectMap = {};
-
-  studyVideos.forEach((video) => {
-
-    const title =
-      video.title.toLowerCase();
-
-    let found = false;
-
-    for (const subject in SUBJECT_KEYWORDS) {
-
-      if (
-
-        SUBJECT_KEYWORDS[subject].some(
-          (keyword) =>
-            title.includes(keyword)
-        )
-
-      ) {
-
-        subjectMap[subject] =
-          (subjectMap[subject] || 0) + 1;
-
-        found = true;
-
-        break;
-
-      }
-
-    }
-
-    if (!found) {
-
-      subjectMap.Others =
-        (subjectMap.Others || 0) + 1;
-
-    }
-
-  });
-
-  const subjectDistribution =
-
-    Object.entries(subjectMap).map(
-
-      ([name, value]) => ({
-
-        name,
-
-        value,
-
-      })
-
-    );
+  const subjectDistribution = buildSubjectDistribution(studyVideos);
 
   // ===============================
   // Most Watched Subject
@@ -205,13 +130,7 @@ const getDashboardAnalytics = async () => {
 
   const mostWatchedSubject =
 
-    subjectDistribution.length
-
-      ? subjectDistribution.sort(
-          (a, b) => b.value - a.value
-        )[0].name
-
-      : "N/A";
+    subjectDistribution.find((subject) => subject.name !== "Unclassified")?.name || "N/A";
 
   // ===============================
   // Most Watched Channel
@@ -317,8 +236,8 @@ const getDashboardAnalytics = async () => {
 // Daily Analytics
 // ===============================
 
-const getDailyAnalytics = async () => {
-  const videos = await videoModel.getAllVideos();
+const getDailyAnalytics = async (owner) => {
+  const videos = await videoModel.getAllVideos(owner);
 
   const today = new Date().toDateString();
 
@@ -349,8 +268,8 @@ const getDailyAnalytics = async () => {
 // Weekly Analytics
 // ===============================
 
-const getWeeklyAnalytics = async () => {
-  const videos = await videoModel.getAllVideos();
+const getWeeklyAnalytics = async (owner) => {
+  const videos = await videoModel.getAllVideos(owner);
 
   const days = [
     "Sun",
@@ -396,8 +315,8 @@ const getWeeklyAnalytics = async () => {
 // Monthly Analytics
 // ===============================
 
-const getMonthlyAnalytics = async () => {
-  const videos = await videoModel.getAllVideos();
+const getMonthlyAnalytics = async (owner) => {
+  const videos = await videoModel.getAllVideos(owner);
 
   const currentMonth = new Date().getMonth();
 
@@ -432,73 +351,10 @@ const getMonthlyAnalytics = async () => {
 // Top Subjects
 // ===============================
 
-const getTopSubjects = async () => {
+const getTopSubjects = async (owner) => {
 
-  const videos = await videoModel.getAllVideos();
-
-  const studyVideos = videos.filter(
-    (video) => video.category === "Study"
-  );
-
-  const SUBJECT_KEYWORDS = {
-    Java: ["java"],
-    JavaScript: ["javascript", "js"],
-    React: ["react"],
-    Node: ["node", "express"],
-    Python: ["python"],
-    DSA: ["dsa", "leetcode", "algorithm"],
-    SQL: ["sql", "database", "mysql"],
-    HTML: ["html"],
-    CSS: ["css"],
-    MongoDB: ["mongodb", "mongo"],
-  };
-
-  const subjectCount = {};
-
-  studyVideos.forEach((video) => {
-
-    const title = video.title.toLowerCase();
-
-    let found = false;
-
-    for (const subject in SUBJECT_KEYWORDS) {
-
-      const keywords = SUBJECT_KEYWORDS[subject];
-
-      if (
-        keywords.some((keyword) =>
-          title.includes(keyword)
-        )
-      ) {
-        subjectCount[subject] =
-          (subjectCount[subject] || 0) + 1;
-
-        found = true;
-
-        break;
-      }
-    }
-
-    if (!found) {
-      subjectCount["Others"] =
-        (subjectCount["Others"] || 0) + 1;
-    }
-
-  });
-
-  const total = Object.values(subjectCount).reduce(
-    (sum, value) => sum + value,
-    0
-  );
-
-  return Object.entries(subjectCount).map(
-    ([subject, count]) => ({
-      subject,
-      percentage: Number(
-        ((count / total) * 100).toFixed(2)
-      ),
-    })
-  );
+  const videos = await videoModel.getAllVideos(owner);
+  return buildSubjectDistribution(videos);
 
 };
 

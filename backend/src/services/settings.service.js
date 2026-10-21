@@ -33,27 +33,30 @@ const defaultSettings = {
   blockedChannels: []
 };
 
-const getSettings = async () => {
-  let settings = await settingsModel.getSettings();
+const getSettings = async (owner) => {
+  let settings = await settingsModel.getSettings(owner);
 
   if (!settings || Object.keys(settings).length === 0) {
-    await settingsModel.saveSettings(defaultSettings);
+    await settingsModel.saveSettings(owner, defaultSettings);
     settings = defaultSettings;
   }
 
   return settings;
 };
 
-const updateSettings = async (updatedSettings) => {
-  const currentSettings = await getSettings();
+const updateSettings = async (owner, updatedSettings) => {
+  const currentSettings = await getSettings(owner);
+  const safeSettings = { ...updatedSettings };
+  delete safeSettings.owner;
+  delete safeSettings._id;
 
   const newSettings = {
     ...currentSettings,
-    ...updatedSettings,
+    ...safeSettings,
     updatedAt: new Date().toISOString()
   };
 
-  await settingsModel.saveSettings(newSettings);
+  await settingsModel.saveSettings(owner, newSettings);
 
   return newSettings;
 };

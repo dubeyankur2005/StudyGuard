@@ -18,6 +18,7 @@
 
   "host_permissions": [
     "https://www.youtube.com/*",
+    "http://localhost:5173/*",
     "http://localhost:3000/*"
   ],
 

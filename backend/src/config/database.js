@@ -1,30 +1,62 @@
-const mongoose = require("mongoose");
-const dns = require("dns");
+const dns = require("node:dns");
 
-// Force Google Public DNS to bypass local ISP/network SRV lookup failures
-dns.setServers(["8.8.8.8", "8.8.4.4"]);
+dns.setServers(["10.145.110.101"]);
+
+const mongoose = require("mongoose");
+
+const redactCredentials = (message) => {
+  let safeMessage = String(message || "Unknown MongoDB error");
+
+  // Remove URI credentials if a driver error happens to include a connection URI.
+  safeMessage = safeMessage.replace(/(mongodb(?:\+srv)?:\/\/)[^\s@]+@/gi, "$1[REDACTED]@");
+
+  for (const secret of [process.env.MONGODB_URI, process.env.JWT_SECRET]) {
+    if (secret) safeMessage = safeMessage.split(secret).join("[REDACTED]");
+  }
+
+  return safeMessage;
+};
 
 const connectDatabase = async () => {
+  const uri = process.env.MONGODB_URI?.trim();
+  if (!uri) {
+    throw new Error("MONGODB_URI is missing or empty. Set it in backend/.env.");
+  }
+
+  if (!/^mongodb(?:\+srv)?:\/\//i.test(uri)) {
+    throw new Error("MONGODB_URI must start with mongodb:// or mongodb+srv://.");
+  }
+
   try {
-    const conn = await mongoose.connect(process.env.MONGODB_URI, {
-      serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
+    const conn = await mongoose.connect(uri, {
+      serverSelectionTimeoutMS: 10000,
     });
 
-    console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
+    // Older versions enforced a global videoId uniqueness constraint. Replace it
+    // with per-owner uniqueness so separate accounts can track the same video.
+    const videos = mongoose.connection.collection("videos");
+    const indexes = await videos.indexes().catch(() => []);
+    const legacyVideoIndex = indexes.find((index) => index.unique && index.key?.videoId === 1 && Object.keys(index.key).length === 1);
+    if (legacyVideoIndex) await videos.dropIndex(legacyVideoIndex.name);
+    await videos.createIndex({ owner: 1, videoId: 1 }, { unique: true });
+
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+    return conn;
   } catch (error) {
-    console.error("❌ MongoDB Connection Failed");
-    console.error(`Error Details: ${error.message}`);
-    process.exit(1);
+    const safeError = new Error(redactCredentials(error.message));
+    safeError.name = error.name || "Error";
+    console.error(`MongoDB connection failed (${safeError.name}): ${safeError.message}`);
+    throw safeError;
   }
 };
 
 // Handle connection drop/errors after initial connection
 mongoose.connection.on("disconnected", () => {
-  console.warn("⚠️ MongoDB connection disconnected.");
+  console.warn("MongoDB connection disconnected.");
 });
 
-mongoose.connection.on("error", (err) => {
-  console.error(`❌ Runtime MongoDB Error: ${err.message}`);
+mongoose.connection.on("error", (error) => {
+  console.error(`MongoDB runtime error (${error.name || "Error"}): ${redactCredentials(error.message)}`);
 });
 
 module.exports = connectDatabase;

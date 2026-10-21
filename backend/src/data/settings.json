@@ -1,6 +1,6 @@
 {
   "darkMode": false,
-  "studyMode": false,
+  "studyMode": true,
   "focusMode": false,
   "dailyStudyGoal": 180,
   "weeklyStudyGoal": 1260,
@@ -23,6 +23,6 @@
   "blockedKeywords": [],
   "allowedChannels": [],
   "blockedChannels": [],
-  "updatedAt": "2026-08-07T09:31:24.826Z",
+  "updatedAt": "2026-09-21T07:07:57.640Z",
   "trackingEnabled": true
 }

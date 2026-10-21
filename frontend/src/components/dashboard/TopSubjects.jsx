@@ -6,9 +6,8 @@ import {
   Cell,
   ResponsiveContainer,
   Tooltip,
+  Legend,
 } from "recharts";
-
-import { topSubjects } from "../../data/dashboardData";
 
 const COLORS = [
   "#14B8A6",
@@ -18,7 +17,9 @@ const COLORS = [
   "#3B82F6",
 ];
 
-const TopSubjects = () => {
+const TopSubjects = ({ subjects = null }) => {
+  const classifiableSubjects = subjects?.filter((item) => item.name !== "Unclassified") || [];
+  const hasDistribution = classifiableSubjects.length > 0;
   return (
     <section className="top-subjects">
 
@@ -28,6 +29,12 @@ const TopSubjects = () => {
 
       <div className="subjects-container">
 
+        {subjects === null ? <p className="subjects-empty" role="status">Loading subject history...</p> : !hasDistribution ? (
+          <div className="subjects-empty" role="status">
+            <strong>No classifiable subjects yet</strong>
+            <span>{subjects.length ? `${subjects.find((item) => item.name === "Unclassified")?.count || 0} study videos could not be classified from their titles.` : "Study video history will appear here once available."}</span>
+          </div>
+        ) : <>
         <div className="subject-chart">
 
           <ResponsiveContainer width="100%" height={220}>
@@ -35,23 +42,24 @@ const TopSubjects = () => {
             <PieChart>
 
               <Pie
-                data={topSubjects}
+                data={subjects}
                 dataKey="percentage"
-                nameKey="subject"
+                nameKey="name"
                 innerRadius={55}
                 outerRadius={85}
               >
 
-                {topSubjects.map((item, index) => (
+                {subjects.map((item, index) => (
                   <Cell
-                    key={item.id}
-                    fill={COLORS[index]}
+                    key={item.name}
+                    fill={COLORS[index % COLORS.length]}
                   />
                 ))}
 
               </Pie>
 
-              <Tooltip />
+              <Tooltip formatter={(value) => [`${value}%`, "Study videos"]} />
+              <Legend />
 
             </PieChart>
 
@@ -61,26 +69,26 @@ const TopSubjects = () => {
 
         <div className="subject-list">
 
-          {topSubjects.map((item, index) => (
+          {subjects.map((item, index) => (
 
             <div
               className="subject-item"
-              key={item.id}
+              key={item.name}
             >
 
               <span
                 className="color-dot"
                 style={{
-                  background: COLORS[index],
+                  background: COLORS[index % COLORS.length],
                 }}
               ></span>
 
               <span className="subject-name">
-                {item.subject}
+                {item.name}
               </span>
 
               <span className="subject-value">
-                {item.percentage}%
+                {item.percentage}% <span className="subject-count">({item.count})</span>
               </span>
 
             </div>
@@ -88,6 +96,7 @@ const TopSubjects = () => {
           ))}
 
         </div>
+        </>}
 
       </div>
 

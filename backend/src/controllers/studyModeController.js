@@ -2,11 +2,11 @@ const {
   getStudyModeStatusService,
 } = require("../services/studyModeService");
 
-async function getStudyModeStatus(req, res) {
+async function getStudyModeStatus(req, res, next) {
 
   try {
 
-    const data = await getStudyModeStatusService();
+    const data = await getStudyModeStatusService(req.user._id);
 
     res.status(200).json({
       success: true,
@@ -15,12 +15,7 @@ async function getStudyModeStatus(req, res) {
 
   } catch (error) {
 
-    console.error(error);
-
-    res.status(500).json({
-      success: false,
-      message: "Unable to fetch Study Mode status.",
-    });
+    next(error);
 
   }
 

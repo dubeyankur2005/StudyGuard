@@ -1,11 +1,11 @@
 const settingsService = require("./settings.service");
 const videoService = require("./video.service");
 
-const getStudyModeStatusService = async () => {
+const getStudyModeStatusService = async (owner) => {
 
-  const settings = await settingsService.getSettings();
+  const settings = await settingsService.getSettings(owner);
 
-  const videos = await videoService.getAllVideos();
+  const videos = await videoService.getAllVideos(owner);
 
   const today = new Date().toDateString();
 

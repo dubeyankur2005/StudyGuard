@@ -1,8 +1,6 @@
-import axios from "axios";
-
-const API = "http://localhost:3000/api/videos";
+import client from "./client";
 
 export const getAllVideos = async () => {
-  const response = await axios.get(API);
+  const response = await client.get("/videos");
   return response.data;
 };

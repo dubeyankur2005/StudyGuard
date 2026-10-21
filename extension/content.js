@@ -33,6 +33,13 @@ let currentVideo = {
 let currentVideoElement = null;
 
 let currentUrl = window.location.href;
+let pendingStudyModeResume = false;
+let refreshingStudyMode = false;
+
+chrome.runtime.onMessage.addListener((message) => {
+    if (message.type !== "STUDY_MODE_CHANGED") return;
+    applyStudyMode(Boolean(message.enabled));
+});
 
 // =====================================
 // Load Study Mode
@@ -76,9 +83,8 @@ async function loadStudyMode() {
 
                 }
 
-                studyMode = response.studyMode;
+                applyStudyMode(Boolean(response.studyMode));
 
-                console.log("Study Mode:", studyMode);
 
                 resolve();
 
@@ -127,6 +133,10 @@ async function initialize() {
 
     await loadStudyMode();
 
+    // Dashboard settings are saved by the website, so refresh the same
+    // authenticated preference periodically while YouTube is open.
+    setInterval(refreshStudyMode, 5000);
+
     // Run every second
     setInterval(() => {
 
@@ -144,6 +154,33 @@ async function initialize() {
 
     detectPageUnload();
 
+}
+
+async function refreshStudyMode() {
+    if (refreshingStudyMode || !document.querySelector("video")) return;
+    refreshingStudyMode = true;
+    try {
+        chrome.runtime.sendMessage({ type: "GET_STUDY_MODE" }, (response) => {
+            if (!chrome.runtime.lastError && response?.success) {
+                applyStudyMode(Boolean(response.studyMode));
+            }
+            refreshingStudyMode = false;
+        });
+    } catch {
+        refreshingStudyMode = false;
+    }
+}
+
+function applyStudyMode(enabled) {
+    const changed = studyMode !== enabled;
+    studyMode = enabled;
+    if (!changed && enabled) return;
+    if (!enabled) {
+        pendingStudyModeResume = false;
+        removeBlockOverlay();
+        return;
+    }
+    checkStudyMode();
 }
 
 initialize();
@@ -258,7 +295,6 @@ if (url.pathname.startsWith("/shorts/")) {
 
         console.log("StudyGuard Loaded");
 
-        console.table(currentVideo);
 
         attachVideoListeners(video);
 
@@ -298,15 +334,26 @@ function checkStudyMode() {
 
     }
 
+    // Do not block a newly navigated player until its metadata is classified.
+    if (!currentVideo.videoId) return;
+
     if (currentVideo.category === "Study") {
 
         removeBlockOverlay();
+
+        if (pendingStudyModeResume) {
+            pendingStudyModeResume = false;
+            const video = document.querySelector("video");
+            if (video) video.play().catch(() => {});
+        }
 
         return;
 
     }
 
     blockEntertainmentVideo();
+
+    pendingStudyModeResume = false;
 
 }
 
@@ -718,12 +765,6 @@ function pauseTracking() {
 
     currentVideo.sessionStartTime = null;
 
-    console.log(
-        "Current Watch Time:",
-        currentVideo.totalWatchTime,
-        "seconds"
-    );
-
 }
 
 // =====================================
@@ -763,7 +804,6 @@ function saveCurrentVideo() {
 
             console.log("Video Saved");
 
-            console.log(response);
 
         }
     );
@@ -776,6 +816,12 @@ function saveCurrentVideo() {
 
 function detectVideoChange() {
 
+    document.addEventListener("yt-navigate-start", handleNavigationStart);
+    document.addEventListener("yt-navigate-finish", () => {
+        currentUrl = window.location.href;
+        waitForVideo();
+    });
+
     setInterval(() => {
 
         if (window.location.href === currentUrl) {
@@ -783,6 +829,8 @@ function detectVideoChange() {
         }
 
         console.log("Video Changed");
+
+        holdPlaybackForNavigation();
 
         pauseTracking();
 
@@ -796,6 +844,21 @@ waitForVideo();
 
     }, 1000);
 
+}
+
+function holdPlaybackForNavigation() {
+    if (!studyMode) return;
+    const video = document.querySelector("video");
+    if (video && !video.paused && !video.ended) {
+        pendingStudyModeResume = true;
+        video.pause();
+    }
+    pauseTracking();
+}
+
+function handleNavigationStart() {
+    holdPlaybackForNavigation();
+    saveCurrentVideo();
 }
 
 // =====================================

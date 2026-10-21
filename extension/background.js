@@ -1,247 +1,85 @@
-console.log("StudyGuard Background Service Worker Started");
-
-// ======================================
-// API URL
-// ======================================
-
 const API_BASE_URL = "http://localhost:3000/api";
+const TOKEN_KEY = "studyguard_extension_token";
+const LEGACY_SETTINGS_KEYS = ["darkMode", "studyMode", "focusMode", "dailyStudyGoal", "weeklyStudyGoal", "reminderTime", "breakReminder", "allowedKeywords", "blockedKeywords", "allowedChannels", "blockedChannels", "trackingEnabled", "updatedAt"];
 
-// ======================================
-// Extension Installed
-// ======================================
+const storageReady = chrome.storage.local.setAccessLevel
+  ? chrome.storage.local.setAccessLevel({ accessLevel: "TRUSTED_CONTEXTS" })
+  : Promise.resolve();
 
-chrome.runtime.onInstalled.addListener(async () => {
-
-  console.log("StudyGuard Installed");
-
-  await syncSettingsFromBackend();
-
+chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+  const handlers = {
+    EXTENSION_LOGIN: () => login(message.payload),
+    EXTENSION_LOGOUT: logout,
+    EXTENSION_SESSION: session,
+    VIDEO_TRACKED: () => api("/videos", { method: "POST", body: JSON.stringify(message.payload) }),
+    GET_SETTINGS: () => api("/settings"),
+    GET_STUDY_MODE: async () => { const result = await api("/settings"); return { ...result, studyMode: result.data?.studyMode }; },
+    UPDATE_SETTINGS: async () => {
+      const result = await api("/settings", { method: "PUT", body: JSON.stringify(message.payload) });
+      if (Object.prototype.hasOwnProperty.call(message.payload || {}, "studyMode")) {
+        await broadcastStudyMode(Boolean(result.data?.studyMode));
+      }
+      return result;
+    },
+    VIDEO_SUMMARY: () => api("/videos/summary"),
+  };
+  if (!handlers[message.type]) { sendResponse({ success: false, message: "Unknown request" }); return false; }
+  handlers[message.type]().then(sendResponse).catch((error) => sendResponse({ success: false, message: error.message }));
+  return true;
 });
 
-// ======================================
-// Message Listener
-// ======================================
-
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-
-  switch (message.type) {
-
-    case "VIDEO_TRACKED":
-
-      saveVideo(message.payload, sendResponse);
-
-      return true;
-
-    case "GET_SETTINGS":
-
-      getSettings(sendResponse);
-
-      return true;
-
-    case "GET_STUDY_MODE":
-
-      getStudyMode(sendResponse);
-
-      return true;
-
-    case "UPDATE_SETTINGS":
-
-      updateSettings(message.payload, sendResponse);
-
-      return true;
-
-    default:
-
-      sendResponse({
-        success: false,
-        message: "Unknown message type",
-      });
-
-      return true;
-
-  }
-
-});
-
-// ======================================
-// Sync Settings From Backend
-// ======================================
-
-async function syncSettingsFromBackend() {
-
-  try {
-
-    const response = await fetch(
-      `${API_BASE_URL}/settings`
-    );
-
-    const result = await response.json();
-
-    if (!result.success) return;
-
-    await chrome.storage.local.set(result.data);
-
-    console.log("Settings Synced From Backend");
-
-  } catch (error) {
-
-    console.error(
-      "Settings Sync Failed:",
-      error
-    );
-
-  }
-
+async function token() {
+  await storageReady;
+  return (await chrome.storage.local.get(TOKEN_KEY))[TOKEN_KEY];
 }
-
-// ======================================
-// Get Settings
-// ======================================
-
-async function getSettings(sendResponse) {
-
-  try {
-
-    const response = await fetch(
-      `${API_BASE_URL}/settings`
-    );
-
-    const result = await response.json();
-
-    if (result.success) {
-
-      await chrome.storage.local.set(result.data);
-
+async function logout() {
+  await storageReady;
+  await chrome.storage.local.remove([TOKEN_KEY, ...LEGACY_SETTINGS_KEYS]);
+  return { success: true };
+}
+async function login(credentials) {
+  const result = await request("/auth/login", { method: "POST", body: JSON.stringify(credentials) });
+  if (!result.success || !result.data?.token) throw new Error(result.message || "Login failed");
+  await storageReady;
+  await chrome.storage.local.set({ [TOKEN_KEY]: result.data.token });
+  return { success: true, user: result.data.user };
+}
+async function session() {
+  if (!await token()) return { success: true, authenticated: false };
+  try { const result = await api("/auth/me"); return { success: true, authenticated: true, user: result.data }; }
+  catch { return { success: true, authenticated: false }; }
+}
+async function api(path, options = {}) {
+  const storedToken = await token();
+  if (!storedToken) throw new Error("Sign in to your StudyGuard account.");
+  try { return await request(path, options, storedToken); }
+  catch (error) {
+    if (error.status === 401) {
+      await logout();
+      chrome.runtime.sendMessage({ type: "SESSION_EXPIRED" }, () => void chrome.runtime.lastError);
+      throw new Error("Your session expired. Please sign in again.");
     }
-
-    sendResponse(result);
-
-  } catch (error) {
-
-    sendResponse({
-      success: false,
-      message: error.message,
-    });
-
+    throw error;
   }
-
+}
+async function request(path, options = {}, bearer) {
+  const response = await fetch(`${API_BASE_URL}${path}`, {
+    ...options,
+    headers: { "Content-Type": "application/json", ...(bearer ? { Authorization: `Bearer ${bearer}` } : {}), ...options.headers },
+  });
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok || result.success === false) {
+    const error = new Error(result.message || `Request failed (${response.status})`);
+    error.status = response.status;
+    throw error;
+  }
+  return result;
 }
 
-// ======================================
-// Get Study Mode
-// ======================================
-
-async function getStudyMode(sendResponse) {
-
-  console.log("GET_STUDY_MODE called");
-
-  try {
-
-    const response = await fetch(
-      `${API_BASE_URL}/settings`
-    );
-
-    const result = await response.json();
-
-    sendResponse({
-      success: true,
-      studyMode: result.data.studyMode,
-    });
-
-  } catch (error) {
-
-    console.error(error);
-
-    sendResponse({
-      success: false,
-      message: error.message,
-    });
-
-  }
-
-}
-
-// ======================================
-// Update Settings
-// ======================================
-
-async function updateSettings(settings, sendResponse) {
-
-  try {
-
-    const response = await fetch(
-      `${API_BASE_URL}/settings`,
-      {
-        method: "PUT",
-
-        headers: {
-          "Content-Type": "application/json",
-        },
-
-        body: JSON.stringify(settings),
-      }
-    );
-
-    const result = await response.json();
-
-    if (result.success) {
-
-      await chrome.storage.local.set(result.data);
-
-      console.log("Settings Updated");
-
-    }
-
-    sendResponse(result);
-
-  } catch (error) {
-
-    sendResponse({
-      success: false,
-      message: error.message,
-    });
-
-  }
-
-}
-
-// ======================================
-// Save Video
-// ======================================
-
-async function saveVideo(videoData, sendResponse) {
-
-  try {
-
-    const response = await fetch(
-      `${API_BASE_URL}/videos`,
-      {
-        method: "POST",
-
-        headers: {
-          "Content-Type": "application/json",
-        },
-
-        body: JSON.stringify(videoData),
-      }
-    );
-
-    const data = await response.json();
-
-    sendResponse({
-      success: true,
-      data,
-    });
-
-  } catch (error) {
-
-    console.error(error);
-
-    sendResponse({
-      success: false,
-      message: error.message,
-    });
-
-  }
-
+async function broadcastStudyMode(enabled) {
+  const tabs = await chrome.tabs.query({ url: "https://www.youtube.com/*" });
+  await Promise.all(tabs.map((tab) => tab.id == null ? null : chrome.tabs.sendMessage(
+    tab.id,
+    { type: "STUDY_MODE_CHANGED", enabled },
+  ).catch(() => null)));
 }
